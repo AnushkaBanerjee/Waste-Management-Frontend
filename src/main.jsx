@@ -42,7 +42,7 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/Worker/" loader={workerInfoLoader} element={<WorkerDashboardMain />}>
-        <Route path="Home"  element={<WorkerHome />} />
+        <Route path="Home" loader={workerInfoLoader} element={<WorkerHome />} />
         <Route path="Analytics" loader={workerInfoLoader} element={<WorkerAnalytics />} />
       </Route>
  
