@@ -4,7 +4,7 @@ import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Button, Grid
 } from '@mui/material';
 
-const PreviewItem = () => {
+const PreviewItem = ({step,setStep}) => {
   const navigateTo = useNavigate();
   const [items, setItems] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -58,7 +58,7 @@ const PreviewItem = () => {
   };
 
   const handlePrev = () => {
-    navigateTo('/addItem');
+    setStep(step - 1);
   };
 
   const handleConfirm = () => {
@@ -120,12 +120,12 @@ const PreviewItem = () => {
       {!orderPlaced && (
         <>
           <Grid item xs={6}>
-            <Button variant="contained" color="primary" onClick={handlePrev}>
+            <Button variant="contained" color="success" onClick={handlePrev}>
               Prev
             </Button>
           </Grid>
           <Grid item xs={6} style={{ textAlign: 'right' }}>
-            <Button variant="contained" color="primary" onClick={handleConfirm}>
+            <Button variant="contained" color="success" onClick={handleConfirm}>
               Confirm
             </Button>
           </Grid>
