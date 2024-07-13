@@ -149,33 +149,33 @@ function CustomerAnalytics() {
                 <Tabs
                     aria-label="Options"
                     placement='top'
-                    color='primary'
+                    color='success'
                     className='flex justify-center '
                     onSelectionChange={(key) => setChart(Number(key))}
                 >
                     <Tab key="1" title={
-                        width < 800 ? <Tooltip key="overview" color="primary" content="Overview" className="capitalize"><PlagiarismIcon /></Tooltip> :
+                        width < 800 ? <Tooltip key="overview" color="success" content="Overview" className="capitalize"><PlagiarismIcon /></Tooltip> :
                             <div className="flex items-center space-x-2">
                                 <PlagiarismIcon />
                                 <span>Overview</span>
                             </div>
                     } />
                     <Tab key="2" title={
-                        width < 800 ? <Tooltip key="accuracy" color="primary" content="Rating" className="capitalize"><NetworkCheckIcon /></Tooltip> :
+                        width < 800 ? <Tooltip key="accuracy" color="success" content="Rating" className="capitalize"><NetworkCheckIcon /></Tooltip> :
                             <div className="flex items-center space-x-2">
                                 <NetworkCheckIcon />
                                 <span>Rating</span>
                             </div>
                     } />
                     <Tab key="3" title={
-                        width < 800 ? <Tooltip key="performance" color="primary" content="Your Earnings" className="capitalize"><TimelineIcon /></Tooltip> :
+                        width < 800 ? <Tooltip key="performance" color="success" content="Your Earnings" className="capitalize"><TimelineIcon /></Tooltip> :
                             <div className="flex items-center space-x-2">
                                 <TimelineIcon />
                                 <span>Your Earnings</span>
                             </div>
                     } />
                     <Tab key="4" title={
-                        width < 800 ? <Tooltip key="submissions" color="primary" content="Waste Produced" className="capitalize"><DriveFolderUploadIcon /></Tooltip> :
+                        width < 800 ? <Tooltip key="submissions" color="success" content="Waste Produced" className="capitalize"><DriveFolderUploadIcon /></Tooltip> :
                             <div className="flex items-center space-x-2">
                                 <DriveFolderUploadIcon />
                                 <span>Waste Produced</span>
