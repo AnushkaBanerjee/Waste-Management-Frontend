@@ -27,7 +27,7 @@ const GetLocation = ({ step, setStep }) => {
   useEffect(() => {
     if (location && mapContainerRef.current) {
       const map = tt.map({
-        key: 'H8RW8U8PTOAP3iPVgBxSGU10oVTZiADe',
+        key: import.meta.env.VITE_TOM_TOM_API_KEY,
         container: mapContainerRef.current,
         center: [location.longitude, location.latitude],
         zoom: 18
@@ -56,9 +56,7 @@ const GetLocation = ({ step, setStep }) => {
         (position) => {
           const { latitude, longitude } = position.coords;
           const userLocation = { latitude, longitude };
-
           localStorage.setItem('userLocation', JSON.stringify(userLocation));
-          localStorage.setItem('pickupInstructions', instructions);
           setLocation(userLocation);
           setShowMarker(true);
 
@@ -84,69 +82,77 @@ const GetLocation = ({ step, setStep }) => {
   };
 
   return (
-    <div className="p-4 overflow-hidden">
-      <div className='flex justify-around w-screen'>
-        <div className='flex flex-col justify-center items-center gap-2'>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleGetLocation}
-          >
-            Pick Up Location
-          </Button>
-
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => setStep(step + 1)}
-          >
-            Next
-          </Button>
-
-          {!showInstructionInput && (
-            <div className='flex justify-center items-center gap-2 text-red-600 cursor-pointer'>
-              <AddIcon />
-              <p
-                onClick={handleShowInstructionInput}
-                className=''
-              >
-                Add Delivery Instruction
-              </p>
-            </div>
-          )}
-
-          {showInstructionInput && (
-            <div className="mt-4 w-80">
-              <TextField
-                id="instructions"
-                label="Delivery Pickup Instructions"
-                multiline
-                rows={4}
-                value={instructions}
-                onChange={(e) => setInstructions(e.target.value)}
-                variant="outlined"
-                fullWidth
-              />
-              <div className="mt-2">
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCancelInstruction}
-                >
-                  Cancel
-                </Button>
-              </div>
-            </div>
+    <div className="p-4 overflow-hidden bg-white-default rounded-md w-full">
+      <div className='md:flex justify-center gap-12 w-full my-8 space-y-12'>
+        <div className='w-full m-4'>
+          {location && (
+            <div
+              id="map"
+              ref={mapContainerRef}
+              style={{width:"90%",height: '400px', marginTop: '20px' }}
+            ></div>
           )}
         </div>
+        <div className='text-center items-center gap-2 space-y-6 my-auto w-full'>
+        <div className='flex justify-center items-center'>
+            {!showInstructionInput && (
+              <div className='flex justify-center items-center gap-2 text-blue-default cursor-pointer'>
+                <AddIcon />
+                <p
+                  onClick={handleShowInstructionInput}
+                  className=''
+                >
+                  Add Delivery Instruction
+                </p>
+              </div>
+            )}
 
-        {location && (
-          <div
-            id="map"
-            ref={mapContainerRef}
-            style={{ width: '30vw', height: '400px', marginTop: '20px' }}
-          ></div>
-        )}
+            {showInstructionInput && (
+              <div className="mt-4 w-80">
+                <TextField
+                  id="instructions"
+                  label="Delivery Pickup Instructions"
+                  multiline
+                  rows={4}
+                  value={instructions}
+                  onChange={(e) => setInstructions(e.target.value)}
+                  variant="outlined"
+                  fullWidth
+                />
+                <div className="mt-2">
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleCancelInstruction}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className='w-full flex justify-between px-8'>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleGetLocation}
+            >
+              Pick Up Location
+            </Button>
+
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() =>{ 
+                localStorage.setItem('pickupInstructions', instructions);
+                setStep(step + 1)
+                }}
+            >
+              Next
+            </Button>
+          </div>
+          
+        </div>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import { PhotoCamera } from '@mui/icons-material';
 
 const categories = ['Paper', 'Plastic', 'Glass', 'Metal', 'Organic', 'E-waste', 'Others'];
 
-const AddItem = ({step,setStep}) => {
+const AddItem = ({step,setStep,setThumbnail,thumbnail}) => {
   const navigateTo = useNavigate();
   const [items, setItems] = useState(() => {
     const storedItems = localStorage.getItem('addItemItems');
@@ -85,9 +85,11 @@ const AddItem = ({step,setStep}) => {
       return;
     }
 
+    setThumbnail(image);
+
     const data = {
       items: selectedItems,
-      image: image ? URL.createObjectURL(image) : null,
+      image: image ? image : null,
     };
 
     localStorage.setItem('addItemData', JSON.stringify(data));
