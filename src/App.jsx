@@ -1,7 +1,14 @@
+
+import AddItem from "./components/CreatePickUp/AddItemComp";
+import GetLocation from "./components/CreatePickUp/GetLocationComp";
+import PreviewItem from "./components/CreatePickUp/PreviewItemComp";
+
 export default function App() {
   return (
-    <h1 className="text-3xl  font-mono underline">
-      Hello world!
-    </h1>
+    <>
+      <GetLocation />
+      <AddItem />
+      <PreviewItem />
+    </>
   )
 }
