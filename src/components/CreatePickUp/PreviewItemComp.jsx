@@ -23,6 +23,7 @@ const PreviewItem = () => {
       navigateTo('/getLocation');
     }
 
+    
     // Fetch user's location when component mounts
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
