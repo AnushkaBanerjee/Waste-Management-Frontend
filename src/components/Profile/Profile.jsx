@@ -54,8 +54,6 @@ function Profile({ isWorker, userData }) {
                     'Content-Type': 'multipart/form-data',
                 }
             });
-
-            setReload(true);
             setSuccessMessage("Profile updated successfully");
             setIsError(false);
             setOpenSnack(true);
