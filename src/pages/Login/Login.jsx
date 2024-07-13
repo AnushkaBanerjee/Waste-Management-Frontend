@@ -98,7 +98,7 @@ export default function Login() {
                 value={email}
                 autoComplete="email"
                 onChange={(e) => setEmail(e.target.value)}
-                color="primary"
+                color="success"
                 radius="lg"
                 classNames={{
                   label: "text-blue-default font-inter",
@@ -122,7 +122,7 @@ export default function Login() {
               />
               <Input
                 label="Password"
-                color="primary"
+                color="success"
                 value={password}
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -164,7 +164,7 @@ export default function Login() {
                 <button
                   onClick={(e) => signIn(e)}
                   type="submit"
-                  className="w-fit text-white-default bg-blue-default focus:ring-4 focus:outline-none focus:bg-white-default focus:text-blue-dark focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  className="w-fit text-white-default bg-blue-default focus:ring-4 focus:outline-none focus:bg-white-default focus:text-blue-dark focus:ring-success-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
                   Sign in
                 </button>
