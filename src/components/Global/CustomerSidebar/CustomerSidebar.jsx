@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import SchoolIcon from '@mui/icons-material/School';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Tooltip} from "@nextui-org/react";
 const CustomerSidebar = ({menuItems}) => {
   const [selected, setSelected] = useState('');
@@ -55,13 +56,13 @@ const CustomerSidebar = ({menuItems}) => {
 
             {item.name === 'Analytics' &&
               <Tooltip content="Analytics" placement="right" color='primary'>
-              <PsychologyIcon className={`text-xl ${selected === item.name ? 'text-blue-default' : 'text-[#A3AED0]'} hover:text-blue-default`} />
+              <TimelineIcon className={`text-xl ${selected === item.name ? 'text-blue-default' : 'text-[#A3AED0]'} hover:text-blue-default`} />
               </Tooltip>
               }
 
-            {item.name === 'My Pickups' &&
-              <Tooltip content="Add Pickups" placement="right" color='primary'>
-              <TimelineIcon className={`text-xl ${selected === item.name ? 'text-blue-default' : 'text-[#A3AED0]'} hover:text-blue-default`} /> 
+            {item.name === 'Add Pickup' &&
+              <Tooltip content="Add Pickup" placement="right" color='primary'>
+              <AddCircleOutlineIcon className={`text-xl ${selected === item.name ? 'text-blue-default' : 'text-[#A3AED0]'} hover:text-blue-default`} /> 
               </Tooltip>
               }
 

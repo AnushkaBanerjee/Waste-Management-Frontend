@@ -59,8 +59,8 @@ const WorkerSidebar = ({menuItems}) => {
               </Tooltip>
               }
 
-            {item.name === 'Add Pickup' &&
-              <Tooltip content="Add Pickup" placement="right" color='primary'>
+            {item.name === 'My Pickups' &&
+              <Tooltip content="My Pickups" placement="right" color='primary'>
               <TimelineIcon className={`text-xl ${selected === item.name ? 'text-blue-default' : 'text-[#A3AED0]'} hover:text-blue-default`} /> 
               </Tooltip>
               }

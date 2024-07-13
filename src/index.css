@@ -14,11 +14,11 @@
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #6495ED;
+    background: #028A0F;
     border-radius: 5px;
 }
  
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #6495ED;
+    background: #028A0F;
 }
