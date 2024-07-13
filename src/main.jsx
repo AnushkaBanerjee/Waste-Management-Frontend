@@ -17,6 +17,8 @@ import WorkerDashboardMain from './pages/WorkerDashboard/WorkerDashboardMain/Wor
 import {workerInfoLoader} from './pages/WorkerDashboard/WorkerDashboardMain/WorkerDashboardMain'
 import WorkerHome from './pages/WorkerDashboard/Submodules/Home/Home'
 
+import CustomerAnalytics from './pages/CustomerDashboard/Submodules/Analytics/Analytics'
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,7 +33,7 @@ const router = createBrowserRouter(
         
       <Route loader={customerInfoLoader} path="/Customer/" element={<CustomerDashboard />}>
         <Route path="Home" element={<CustomerHome />} />
-
+        <Route path="Analytics" loader={customerInfoLoader} element={<CustomerAnalytics />} />
         <Route path="Add-Pickup" loader={customerInfoLoader} element={<CreatePickup />} />
         {/* <Route path="Progress" element={<StudentProgress />} />
         <Route path="Roadmap" element={<StudentRoadmap />} />
