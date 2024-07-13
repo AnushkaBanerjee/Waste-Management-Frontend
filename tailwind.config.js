@@ -20,7 +20,7 @@ export default {
       colors: {
        blue :{
           dark: '#172048',
-          default: '#4DAE08',
+          default: '#028A0F',
           teal: '#1A8486',
 
         },
