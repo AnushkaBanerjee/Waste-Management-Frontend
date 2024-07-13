@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const GetLocation = () => {
+const GetLocation = ({step,setStep}) => {
   const handleGetLocation = () => {
     // Check if the browser supports the Geolocation API
     if (navigator.geolocation) {
@@ -38,13 +38,14 @@ const GetLocation = () => {
       >
         Pick Up Location
       </button>
-      <Link to="/addItem" >
+
         <button
           className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-700 ml-4"
+          onClick={() => setStep(step + 1)}
         >
           Next
         </button>
-      </Link>"
+
     </div>
   );
 };

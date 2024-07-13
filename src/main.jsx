@@ -10,6 +10,7 @@ import NotFound from './components/Global/NotFound/NotFound'
 import CustomerDashboard from './pages/CustomerDashboard/CustomerDashboardMain/CustomerDashboardMain'
 import {customerInfoLoader} from './pages/CustomerDashboard/CustomerDashboardMain/CustomerDashboardMain'
 import CustomerHome from './pages/CustomerDashboard/Submodules/Home/Home'
+import CreatePickup from './pages/CustomerDashboard/Submodules/CreatePickup/CreatePickup'
 
 
 import WorkerDashboardMain from './pages/WorkerDashboard/WorkerDashboardMain/WorkerDashboardMain'
@@ -30,6 +31,8 @@ const router = createBrowserRouter(
         
       <Route loader={customerInfoLoader} path="/Customer/" element={<CustomerDashboard />}>
         <Route path="Home" element={<CustomerHome />} />
+
+        <Route path="Add-Pickup" loader={customerInfoLoader} element={<CreatePickup />} />
         {/* <Route path="Progress" element={<StudentProgress />} />
         <Route path="Roadmap" element={<StudentRoadmap />} />
         <Route loader={studentMyCoursesInfoLoader} path="Courses" element={<StudentCourses />} /> */}

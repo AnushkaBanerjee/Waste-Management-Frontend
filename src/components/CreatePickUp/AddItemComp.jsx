@@ -8,7 +8,7 @@ import { PhotoCamera } from '@mui/icons-material';
 
 const categories = ['Paper', 'Plastic', 'Glass', 'Metal', 'Organic', 'E-waste', 'Others'];
 
-const AddItem = () => {
+const AddItem = ({step,setStep}) => {
   const navigateTo = useNavigate();
   const [items, setItems] = useState(() => {
     const storedItems = localStorage.getItem('addItemItems');
@@ -58,7 +58,7 @@ const AddItem = () => {
   };
 
   const handlePrev = () => {
-    navigateTo('/getLocation');
+    setStep(step - 1);
   };
 
   const handleNext = () => {
@@ -91,7 +91,7 @@ const AddItem = () => {
     };
 
     localStorage.setItem('addItemData', JSON.stringify(data));
-    navigateTo('/previewItem');
+    setStep(step + 1);
   };
 
   return (
@@ -166,7 +166,7 @@ const AddItem = () => {
               onChange={handleImageChange}
             />
             <label htmlFor="upload-image">
-              <IconButton color="primary" component="span">
+              <IconButton color="success" component="span">
                 <PhotoCamera />
               </IconButton>
             </label>
@@ -182,10 +182,10 @@ const AddItem = () => {
 
       <Grid item xs={12}>
         <Box display="flex" justifyContent="space-between" p={2}>
-          <Button variant="contained" color="primary" onClick={handlePrev} style={{ minWidth: '100px' }}>
+          <Button variant="contained" color="success" onClick={handlePrev} style={{ minWidth: '100px' }}>
             Prev
           </Button>
-          <Button variant="contained" color="primary" onClick={handleNext} style={{ minWidth: '100px' }}>
+          <Button variant="contained" color="success" onClick={handleNext} style={{ minWidth: '100px' }}>
             Next
           </Button>
         </Box>

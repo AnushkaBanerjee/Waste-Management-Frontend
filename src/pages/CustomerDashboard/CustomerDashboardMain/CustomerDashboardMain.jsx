@@ -14,7 +14,7 @@ const CustomerDashboard = () => {
 
     { id:1, name: "Home", route: "Customer/Home",icon:"Student/Home" },
     { id:2, name: "Analytics", route: "Customer/Analytics",icon:"chart-bar" }, 
-    { id:3, name: "Add Pickup", route: "Student/Roadmap",icon:"tasks" },
+    { id:3, name: "Add Pickup", route: "Customer/Add-Pickup",icon:"tasks" },
   ];
   const title = "Customer Dashboard";
   const userRole = "customer";
