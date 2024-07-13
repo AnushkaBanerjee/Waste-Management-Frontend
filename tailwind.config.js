@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import vctor from ''
+import { light } from '@mui/material/styles/createPalette';
 
 const {nextui} = require("@nextui-org/react");
 
@@ -22,12 +23,18 @@ export default {
           dark: '#059212',
           default: '#06D001',
           teal: '#4CCD99',
+          light: "#9BEC00",
+          darkTeal: "#007F73"
 
         },
 
         yellow: {
           dark: '#FFC700',
           default: '#EDDC44',
+          medium: "#FFC700",
+          light: "#FFF455",
+          extraLight: "#F3FF90"
+        
         },
 
         grey:{

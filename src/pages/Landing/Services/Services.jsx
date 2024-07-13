@@ -2,20 +2,20 @@ import { Link } from "react-router-dom"
 import Footer from "../Footer/Footer"
 
 const links = [
-    { name: 'Signup As Student to Explore Features For Students ' },
-    { name: 'Signup As Mentors to Explore Features For Mentors' },
+    { name: 'Signup As Customer to Explore Customers Features ' },
+    { name: 'Signup As Worker to Explore Features for Pickup Worker' },
    
   ]
   const stats = [
-    { name: 'Centralized platform for course and assignment management', value: 'Knowledge Exchange' },
-    { name: 'AI-powered course recommendations and roadmap generation', value: 'AI Generated Road Maps' },
-    { name: 'Efficient and effective communication between mentors and students', value: 'Seamless Communication' },
-    { name: ' Real-time insights into student performance and course effectiveness', value: 'Real-Time Collaboration' },
+    { name: 'Centralized platform for connecting users with local rag pickers', value: 'Centralized Connection' },
+    { name: 'Accessible and user-friendly interface with an easy flow ', value: 'Accessibility and Usability' },
+    { name: 'Trustworthy with clear credential verification for rag pickers', value: 'Verified Credentials' },
+    { name: 'Transparent and clear pricing for services', value: 'Pricing Transparency' },
   ]
   
   export default function Services() {
     return (
-      <div className="relative isolate overflow-hidden  bg-blue-200 py-24 sm:py-32">
+      <div className="relative isolate overflow-hidden  bg-yellow-extraLight py-24 sm:py-32">
         
         <div
           className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"

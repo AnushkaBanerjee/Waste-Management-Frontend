@@ -25,15 +25,15 @@ export default function LandingPageMain() {
           <div className="flex lg:hidden">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-blue-light"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
               {mobileMenuOpen===false && <Bars3Icon className="h-6 w-6" aria-hidden="true" />}
             </button>
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end bg-yellow-dark max-w-fit py-2 px-4 rounded-md">
-            <Link to="/login" className="text-base font-semibold leading-6 text-blue-dark">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end bg-blue-darkTeal max-w-fit py-2 px-4 rounded-md">
+            <Link to="/login" className="text-base font-semibold leading-6 text-white-default">
               Sign In
             </Link>
           </div>
@@ -73,7 +73,7 @@ export default function LandingPageMain() {
           <div className="lg:w-1/2 text-left">
             <div className="hidden sm:mb-8 sm:flex sm:justify-center lg:justify-start">
               <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-blue-dark ring-1 ring-gray-900/20 hover:ring-gray-900/30">
-                With AI roadmap generation system.{" "}
+                Reduce,Reuse,Recycle with ease!{" "}
                 <Link to='/signup' className="font-semibold text-blue-default">
                   <span className="absolute inset-0" aria-hidden="true" />
                   Signup for free <span aria-hidden="true">&rarr;</span>
@@ -82,22 +82,19 @@ export default function LandingPageMain() {
             </div>
             <div className="text-center lg:text-left">
               <h1 className="text-4xl font-bold tracking-tight text-blue-dark sm:text-6xl">
-                Learn Today, <br className="hidden sm:inline" />
-                <span className="text-yellow-dark">
-                  Grow Today, <br className="hidden sm:inline" />
+              Upgrade Responsibly, <br className="hidden sm:inline" />
+                <span className="text-blue-light">
+                Dispose Sustainably! <br className="hidden sm:inline" />
                 </span>
-                Lead Tomorrow!
+                
               </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
-                Revolutionize your learning experience with our cutting-edge
-                virtual learning platform Aarohan. Dive into interactive
-                classrooms, stay organized with personalized dashboards, and
-                receive guidance from mentors dedicated to your academic growth
+              <p className="mt-6 text-lg leading-8 text-blue-default">
+              Transform waste management in your community with our innovative platform. Connect seamlessly with local rag pickers, ensuring accessibility, trust, and transparent pricing. Enjoy a user-friendly experience with reliable services and verified credentials.
               </p>
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-x-6">
                 <Link
                   to="/login"
-                  className="rounded-md bg-blue-default text-white-default px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                  className="rounded-md bg-blue-dark text-white-default px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-default"
                 >
                   Get started
                 </Link>
