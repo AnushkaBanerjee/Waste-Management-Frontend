@@ -84,7 +84,7 @@ function ProfileBar({isWorker,image,userData,setReload}) {
             <DropdownTrigger>
               <Avatar src={image} className='cursor-pointer' />
             </DropdownTrigger>
-            <DropdownMenu aria-label="Static Actions" color='primary'>
+            <DropdownMenu aria-label="Static Actions" color='success'>
               <DropdownItem key="new" onClick={openProfile} >Profile</DropdownItem>
               <DropdownItem key="delete" onClick={logout} className="text-danger" color="danger">
                 Logout

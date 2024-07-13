@@ -101,7 +101,7 @@ function Profile({ isWorker, userData }) {
                         {isWorker ? <Chip color="danger" variant='flat' size='xl'>Worker</Chip> : <Chip color="success" variant='flat' size='xl'>Customer</Chip>}
                     </div>
                     <div className='flex gap-4 items-end'>
-                        <Button color="primary" variant='flat' className='w-4' onClick={() => document.getElementById('avatarUpload').click()}>
+                        <Button color="success" variant='flat' className='w-4' onClick={() => document.getElementById('avatarUpload').click()}>
                             <EditIcon />
                         </Button>
                         <input
@@ -125,27 +125,27 @@ function Profile({ isWorker, userData }) {
                     </TableHeader>
                     <TableBody>
                         <TableRow key="1">
-                            <TableCell><Chip color="primary">Name</Chip></TableCell>
+                            <TableCell><Chip color="success">Name</Chip></TableCell>
                             <TableCell>{fullName}</TableCell>
                         </TableRow>
                         <TableRow key="2">
-                            <TableCell><Chip color="primary">Username</Chip></TableCell>
+                            <TableCell><Chip color="success">Username</Chip></TableCell>
                             <TableCell>{username}</TableCell>
                         </TableRow>
                         <TableRow key="3">
-                            <TableCell><Chip color="primary">Email</Chip></TableCell>
+                            <TableCell><Chip color="success">Email</Chip></TableCell>
                             <TableCell>{email}</TableCell>
                         </TableRow>
                         <TableRow key="4">
-                            <TableCell><Chip color="primary">Contact No.</Chip></TableCell>
+                            <TableCell><Chip color="success">Contact No.</Chip></TableCell>
                             <TableCell>{contactNo}</TableCell>
                         </TableRow>
                         <TableRow key="6">
-                            <TableCell><Chip color="primary">Language</Chip></TableCell>
+                            <TableCell><Chip color="success">Language</Chip></TableCell>
                             <TableCell>{language}</TableCell>
                         </TableRow>
                         <TableRow key="7">
-                            <TableCell><Chip color="primary">Address</Chip></TableCell>
+                            <TableCell><Chip color="success">Address</Chip></TableCell>
                             <TableCell>{address}</TableCell>
                         </TableRow>
                     </TableBody>
