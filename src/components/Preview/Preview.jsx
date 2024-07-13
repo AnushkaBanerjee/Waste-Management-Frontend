@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import tt from '@tomtom-international/web-sdk-maps';
 
 const Preview = () => {
   const navigateTo = useNavigate();
-
+  const mapContainerRef = useRef(null);
   const formData = {
     id: '4',
     ownerName: 'David Kumar',
@@ -29,50 +30,81 @@ const Preview = () => {
     totalOfferPrice += parseInt(item.offerPrice);
   });
 
+  useEffect(() => {
+    // Check if geolocation is available
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords;
+
+        const map = tt.map({
+          key: 'H8RW8U8PTOAP3iPVgBxSGU10oVTZiADe',
+          container: mapContainerRef.current,
+          center: [longitude, latitude], // Set to user's location
+          zoom: 18,
+        });
+
+        // Add a marker to the map at user's location
+        const marker = new tt.Marker()
+          .setLngLat([longitude, latitude])
+          .addTo(map);
+
+        return () => map.remove();
+      });
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
+
   return (
-    <div className="mx-auto p-8 bg-gray-100">
-      <div className="flex justify-between items-center">
+    <div className="mx-auto p-8 ">
+      <div className="flex flex-col lg:flex-row md:flex-col sm:flex-col gap-8 sm:gap-8 justify-around items-center ">
         <div>
           <p className=' text-xl font-medium'>
             ID:{" "}
-            <span className='text-[#6b738b]   font-normal'>
+            <span className='text-[#6b738b] font-normal'>
               {formData.id}
             </span>
           </p>
           <p className=' text-xl font-medium'>
             Owner Name:{" "}
-            <span className='text-[#6b738b]   font-normal'>
+            <span className='text-[#6b738b] font-normal'>
               {formData.ownerName}
             </span>
           </p>
           <p className=' text-xl font-medium'>
             Date:{" "}
-            <span className='text-[#6b738b]   font-normal'>
+            <span className='text-[#6b738b] font-normal'>
               {formData.date}
             </span>
           </p>
           <p className=' text-xl font-medium'>
             Status:{" "}
-            <span className='text-[#6b738b]   font-normal'>
+            <span className='text-[#6b738b] font-normal'>
               {formData.status}
             </span>
           </p>
           <p className=' text-xl font-medium'>
             Worker Name:{" "}
-            <span className='text-[#6b738b]   font-normal'>
+            <span className='text-[#6b738b] font-normal'>
               {formData.workerName}
             </span>
           </p>
           <p className=' text-xl font-medium'>
             Pickup Time:{" "}
-            <span className='text-[#6b738b]   font-normal'>
+            <span className='text-[#6b738b] font-normal'>
               {formData.pickupTime}
             </span>
           </p>
         </div>
-        <div>
-          <img src={formData.imageUrl} alt="Item Image" className="w-80 h-80 object-contain" />
+        <div className=''>
+          <img src={formData.imageUrl} alt="Item Image" className="lg:w-[25vw] lg:h-[300px] md:w-[50vw] md:h[50vw] object-contain" />
         </div>
+        <div
+          id="map"
+          ref={mapContainerRef}
+          className='lg:flex justify-center items-center hidden'
+          style={{ width: '25vw', height: '300px', marginTop: '20px' }}
+        ></div>
       </div>
       <div className="mt-4">
         <TableContainer component={Paper}>
