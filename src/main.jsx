@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Login from './pages/Login/Login'
+import SignupPage from './pages/Signup/SignupPage'
 import LandingPageMain from './pages/Landing/LandingPageMain/LandingPageMain'
 import { NextUIProvider } from "@nextui-org/react";
 import NotFound from './components/Global/NotFound/NotFound'
@@ -13,7 +14,7 @@ const router = createBrowserRouter(
       {/* auth  */}
       <Route path="/*" element={<NotFound />} />
       <Route path="/login" element={<Login />} />
-      
+      <Route path="/signup" element={<SignupPage />} />
 
       {/* landing */}
       <Route path="" element={<LandingPageMain />}/>

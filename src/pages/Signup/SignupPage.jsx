@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Backend_url } from '../../../BackendUrl'
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function SignupPage() {
     const navigate = useNavigate();
@@ -32,12 +32,8 @@ function SignupPage() {
         email: '',
         contactNumber: '',
         address: '',
-        birthDate: null,
-        gender: '',
         role: '',
         language: '',
-        semester: '',
-        institutionName: '',
         password: '',
     });
 
@@ -84,11 +80,8 @@ function SignupPage() {
                     username: formData.username,
                     fullName: formData.name,
                     contactNo: formData.contactNumber,
-                    dob: formData.birthDate,
                     address: formData.address,
                     language: formData.language.target?.value,
-                    institution: formData.institutionName,
-                    standard: formData.semester.target?.value,
                     role: formData.role.target?.value,
                     password: formData.password,
                     avatar: file,
@@ -104,19 +97,19 @@ function SignupPage() {
             setOpenSnack(true);
             setTimeout(() => {
                 navigate("/Login");
-              }, 2000)
-            
+            }, 2000)
+
         } catch (error) {
             if (error.response?.status === 400) {
                 setErrorMessage("All fields are required");
-              } else if (error.response?.status === 409) {
+            } else if (error.response?.status === 409) {
                 setErrorMessage("User already exists");
-              } else {
+            } else {
                 setErrorMessage("Server error. Please try again later");
                 console.log('Error:', error);
-              }
-              setIsError(true);
-              setOpenSnack(true);
+            }
+            setIsError(true);
+            setOpenSnack(true);
         }
     };
 
@@ -155,7 +148,7 @@ function SignupPage() {
                                 </div>
                                 <Button
                                     variant="bordered"
-                                    color='primary'
+                                    color='success'
                                     startContent={<CloudUploadIcon />}
                                     onClick={() => document.getElementById('avatarUpload').click()}
                                 >
@@ -173,7 +166,7 @@ function SignupPage() {
                                 <Input
                                     label="Name"
                                     type="text"
-                                    color="primary"
+                                    color="success"
                                     radius="lg"
                                     name="name"
                                     value={formData.name}
@@ -201,7 +194,7 @@ function SignupPage() {
                                 <Input
                                     label="Username"
                                     type="text"
-                                    color="primary"
+                                    color="success"
                                     radius="lg"
                                     name="username"
                                     value={formData.username}
@@ -231,7 +224,7 @@ function SignupPage() {
                                 <Input
                                     label="Email"
                                     type="email"
-                                    color="primary"
+                                    color="success"
                                     radius="lg"
                                     name="email"
                                     value={formData.email}
@@ -259,7 +252,7 @@ function SignupPage() {
                                 <Input
                                     label="Contact Number"
                                     type="phone"
-                                    color="primary"
+                                    color="success"
                                     radius="lg"
                                     name="contactNumber"
                                     value={formData.contactNumber}
@@ -289,7 +282,7 @@ function SignupPage() {
                                 <Input
                                     label="Address"
                                     type="text"
-                                    color="primary"
+                                    color="success"
                                     radius="lg"
                                     name="address"
                                     value={formData.address}
@@ -315,115 +308,47 @@ function SignupPage() {
                                     }}
                                 />
                             </div>
-                            <div className='space-y-4 sm:space-y-0 sm:flex sm:gap-4'>
-                                <input type='date' onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })}
-                                className='w-full  h-12 p-3 text-blue-dark font-inter  border-blue-100 shadow-blue-100 rounded-lg border-2 bg-white-default/50 hover:border-blue-default/50 hover:bg-white-default/50 focus:bg-white-200/50 focus:text-blue-default  group-data-[focus=true]:bg-white-200/50 !cursor-text'
-                                />
 
-                            </div>
                             <div className='space-y-4 sm:space-y-0 sm:flex sm:gap-4'>
                                 <Select
                                     label="Role"
-                                    color="primary"
+                                    color="success"
                                     className="w-full"
                                     radius="lg"
                                     onChange={(value) => handleSelectChange('role', value)}
                                 >
-                                    <SelectItem key="student" color="primary">
-                                        Student
+                                    <SelectItem key="customer" color="success">
+                                        Customer
                                     </SelectItem>
-                                    <SelectItem key="mentor" color="primary">
-                                        Mentor
+                                    <SelectItem key="worker" color="success">
+                                        Worker
                                     </SelectItem>
                                 </Select>
 
                                 <Select
                                     label="Language"
-                                    color="primary"
+                                    color="success"
                                     className="w-full"
                                     radius="lg"
                                     onChange={(value) => handleSelectChange('language', value)}
                                 >
-                                    <SelectItem key="bengali" color="primary">
+                                    <SelectItem key="bengali" color="success">
                                         Bengali
                                     </SelectItem>
-                                    <SelectItem key="english" color="primary">
+                                    <SelectItem key="english" color="success">
                                         English
                                     </SelectItem>
-                                    <SelectItem key="hindi" color="primary">
+                                    <SelectItem key="hindi" color="success">
                                         Hindi
                                     </SelectItem>
                                 </Select>
                             </div>
-                            {formData.role.target?.value === 'student' && (<div className='space-y-4 sm:space-y-0 sm:flex sm:gap-4'>
-                                <Select
-                                    label="Semester"
-                                    color="primary"
-                                    className="w-full"
-                                    radius="lg"
-                                    onChange={(value) => handleSelectChange('semester', value)}
-                                >
-                                    <SelectItem key="1" color="primary">
-                                        1st Semester
-                                    </SelectItem>
-                                    <SelectItem key="2" color="primary">
-                                        2nd Semester
-                                    </SelectItem>
-                                    <SelectItem key="3" color="primary">
-                                        3rd Semester
-                                    </SelectItem>
-                                    <SelectItem key="4" color="primary">
-                                        4th Semester
-                                    </SelectItem>
-                                    <SelectItem key="5" color="primary">
-                                        5th Semester
-                                    </SelectItem>
-                                    <SelectItem key="6" color="primary">
-                                        6th Semester
-                                    </SelectItem>
-                                    <SelectItem key="7" color="primary">
-                                        7th Semester
-                                    </SelectItem>
-                                    <SelectItem key="8" color="primary">
-                                        8th Semester
-                                    </SelectItem>
-                                </Select>
-
-                                <Input
-                                    label="Institution Name"
-                                    type="text"
-                                    color="primary"
-                                    radius="lg"
-                                    name="institutionName"
-                                    value={formData.institutionName}
-                                    onChange={handleChange}
-                                    classNames={{
-                                        label: "text-blue-default font-inter",
-                                        input: [
-                                            "bg-transparent",
-                                            "text-blue-dark font-inter",
-                                            "focus:text-blue-dark",
-                                        ],
-                                        innerWrapper: "bg-transparent",
-                                        inputWrapper: [
-                                            "border border-blue-100 shadow-blue-100 rounded-lg border-2",
-                                            "bg-white-default/50",
-                                            "hover:border-blue-default/50",
-                                            "hover:bg-white-default/50",
-                                            "focus:bg-white-200/50",
-                                            "focus:text-blue-default font-inter",
-                                            "group-data-[focus=true]:bg-white-200/50",
-                                            "!cursor-text",
-                                        ],
-                                    }}
-                                />
-                            </div>)}
 
                             <div className='space-y-4 sm:space-y-0 sm:flex sm:gap-4'>
                                 <Input
                                     label="Password"
                                     type="password"
-                                    color="primary"
+                                    color="success"
                                     radius="lg"
                                     name="password"
                                     value={formData.password}
@@ -452,7 +377,7 @@ function SignupPage() {
                             <div className="flex justify-center">
                                 <button
                                     type="submit"
-                                    className="w-fit text-white-default bg-blue-default focus:ring-4 focus:outline-none focus:bg-white-default focus:text-blue-dark focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                    className="w-fit text-white-default bg-blue-default focus:ring-4 focus:outline-none focus:bg-white-default focus:text-blue-dark focus:ring-success-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                 >
                                     Create Account
                                 </button>
@@ -460,12 +385,12 @@ function SignupPage() {
                             <div className="flex justify-center">
                                 <p className="text-m font-medium font-inter">
                                     Don’t have an account yet?{" "}
-                                    <a
-                                        href="/login"
+                                    <Link
+                                        to="/login"
                                         className="font-medium font-inter text-blue-default hover:underline"
                                     >
                                         Sign in
-                                    </a>
+                                    </Link>
                                 </p>
                             </div>
                         </form>
