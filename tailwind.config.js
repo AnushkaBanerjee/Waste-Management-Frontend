@@ -19,14 +19,14 @@ export default {
 
       colors: {
        blue :{
-          dark: '#172048',
-          default: '#153ED0',
-          teal: '#1A8486',
+          dark: '#059212',
+          default: '#06D001',
+          teal: '#4CCD99',
 
         },
 
         yellow: {
-          dark: '#F4C316',
+          dark: '#FFC700',
           default: '#EDDC44',
         },
 
