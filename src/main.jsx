@@ -11,6 +11,12 @@ import CustomerDashboard from './pages/CustomerDashboard/CustomerDashboardMain/C
 import {customerInfoLoader} from './pages/CustomerDashboard/CustomerDashboardMain/CustomerDashboardMain'
 import CustomerHome from './pages/CustomerDashboard/Submodules/Home/Home'
 
+
+import WorkerDashboardMain from './pages/WorkerDashboard/WorkerDashboardMain/WorkerDashboardMain'
+import {workerInfoLoader} from './pages/WorkerDashboard/WorkerDashboardMain/WorkerDashboardMain'
+import WorkerHome from './pages/WorkerDashboard/Submodules/Home/Home'
+
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -27,6 +33,10 @@ const router = createBrowserRouter(
         {/* <Route path="Progress" element={<StudentProgress />} />
         <Route path="Roadmap" element={<StudentRoadmap />} />
         <Route loader={studentMyCoursesInfoLoader} path="Courses" element={<StudentCourses />} /> */}
+      </Route>
+
+      <Route path="/Worker/" loader={workerInfoLoader} element={<WorkerDashboardMain />}>
+        <Route path="Home"  element={<WorkerHome />} />
       </Route>
  
     </Route>

@@ -7,6 +7,7 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import SchoolIcon from '@mui/icons-material/School';
 import {Tooltip} from "@nextui-org/react";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 const WorkerSidebar = ({menuItems}) => {
   const [selected, setSelected] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -55,13 +56,13 @@ const WorkerSidebar = ({menuItems}) => {
 
             {item.name === 'Analytics' &&
               <Tooltip content="Analytics" placement="right" color='primary'>
-              <PsychologyIcon className={`text-xl ${selected === item.name ? 'text-blue-default' : 'text-[#A3AED0]'} hover:text-blue-default`} />
+              <TimelineIcon className={`text-xl ${selected === item.name ? 'text-blue-default' : 'text-[#A3AED0]'} hover:text-blue-default`} />
               </Tooltip>
               }
 
             {item.name === 'My Pickups' &&
               <Tooltip content="My Pickups" placement="right" color='primary'>
-              <TimelineIcon className={`text-xl ${selected === item.name ? 'text-blue-default' : 'text-[#A3AED0]'} hover:text-blue-default`} /> 
+              <ShoppingCartIcon className={`text-xl ${selected === item.name ? 'text-blue-default' : 'text-[#A3AED0]'} hover:text-blue-default`} /> 
               </Tooltip>
               }
 

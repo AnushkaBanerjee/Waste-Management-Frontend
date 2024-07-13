@@ -38,7 +38,7 @@ const CustomerDashboard = () => {
         
         <div className="flex-1 overflow-y-auto">
         {/* <Navbar avatar={avatar} name={name} isStudent={true}/> */}
-        <ProfileBar isCustomer={true} image={avatar} userData={data?.data} setReload={setReload}/>
+        <ProfileBar isWorker={false} image={avatar} userData={data?.data} setReload={setReload}/>
           <Outlet />
         </div>
       </div>
