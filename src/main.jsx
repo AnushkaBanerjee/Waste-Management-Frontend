@@ -18,6 +18,7 @@ import {workerInfoLoader} from './pages/WorkerDashboard/WorkerDashboardMain/Work
 import WorkerHome from './pages/WorkerDashboard/Submodules/Home/Home'
 
 import CustomerAnalytics from './pages/CustomerDashboard/Submodules/Analytics/Analytics'
+import WorkerAnalytics from './pages/WorkerDashboard/Submodules/Analytics/Analytics'
 
 
 const router = createBrowserRouter(
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
 
       <Route path="/Worker/" loader={workerInfoLoader} element={<WorkerDashboardMain />}>
         <Route path="Home"  element={<WorkerHome />} />
+        <Route path="Analytics" loader={workerInfoLoader} element={<WorkerAnalytics />} />
       </Route>
  
     </Route>

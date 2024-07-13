@@ -18,7 +18,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
-function CustomerAnalytics() {
+function WorkerAnalytics() {
     const [userData, setUserData] = useState();
     const data = useLoaderData()
     const [analytics, setAnalytics] = useState();
@@ -57,7 +57,7 @@ function CustomerAnalytics() {
                     return null;
                 }
 
-                const response = await axios.get(`${Backend_url}/api/v1/users/analytics`, {
+                const response = await axios.get(`${Backend_url}/api/v1/users/worker-analytics`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
@@ -168,17 +168,17 @@ function CustomerAnalytics() {
                             </div>
                     } />
                     <Tab key="3" title={
-                        width < 800 ? <Tooltip key="performance" color="primary" content="Your Earnings" className="capitalize"><TimelineIcon /></Tooltip> :
+                        width < 800 ? <Tooltip key="performance" color="primary" content="Your Purchases" className="capitalize"><TimelineIcon /></Tooltip> :
                             <div className="flex items-center space-x-2">
                                 <TimelineIcon />
-                                <span>Your Earnings</span>
+                                <span>Your Purchases</span>
                             </div>
                     } />
                     <Tab key="4" title={
-                        width < 800 ? <Tooltip key="submissions" color="primary" content="Waste Produced" className="capitalize"><DriveFolderUploadIcon /></Tooltip> :
+                        width < 800 ? <Tooltip key="submissions" color="primary" content="Waste Collected" className="capitalize"><DriveFolderUploadIcon /></Tooltip> :
                             <div className="flex items-center space-x-2">
                                 <DriveFolderUploadIcon />
-                                <span>Waste Produced</span>
+                                <span>Waste Collected</span>
                             </div>
                     } />
                 </Tabs>
@@ -241,7 +241,7 @@ function CustomerAnalytics() {
                 {chart === 3 && (
                     <div className='text-center'>
                         <Typography variant="h6" component="div" sx={{ m: 2, textAlign: "left", paddingLeft: "10px" }}>
-                            Your Earnings
+                            Your Purchases
                         </Typography>
                         <LineChart
                             grid={{ horizontal: true }}
@@ -267,7 +267,7 @@ function CustomerAnalytics() {
                 {chart === 4 && (
                     <div className='text-center'>
                         <div className='text-left pl-4'>
-                            <h1 className='my-6 text-xl'>Waste Produced</h1>
+                            <h1 className='my-6 text-xl'>Waste Collected</h1>
                         </div>
 
                         <div className='w-full xl:w-2/3 mx-auto'>
@@ -290,4 +290,4 @@ function CustomerAnalytics() {
     );
 }
 
-export default CustomerAnalytics;
+export default WorkerAnalytics;
