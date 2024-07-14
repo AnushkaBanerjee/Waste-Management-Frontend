@@ -21,7 +21,7 @@ Susswacha connects users with local rag pickers to address waste management issu
   ![JWT](https://img.shields.io/badge/JWT-Back%20End-yellow?style=flat&logo=jsonwebtokens) ![NodeJS](https://img.shields.io/badge/NodeJS-Back%20End-339933?style=flat&logo=nodedotjs) ![ExpressJS](https://img.shields.io/badge/ExpressJS-Back%20End-DA3940?style=flat&logo=express) ![Axios](https://img.shields.io/badge/Axios-Back%20End-5A29E4?style=flat&logo=axios)![Bcrypt](https://img.shields.io/badge/Bcrypt-Back%20End-512BD4)![Cloudinary](https://img.shields.io/badge/Cloudinary-Back%20End-3448C5?style=flat&logo=cloudinary)![Multer](https://img.shields.io/badge/Multer-Back%20End-F46519)![Socket.io](https://img.shields.io/badge/Socket.io-Back%20End-gray?style=flat&logo=socketdotio)
   
 - **Database**:
-- ![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=flat&logo=mongodb)![Mongoose](https://img.shields.io/badge/Mongoose-Database-880000?style=flat&logo=mongoose)
+ ![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=flat&logo=mongodb)![Mongoose](https://img.shields.io/badge/Mongoose-Database-880000?style=flat&logo=mongoose)
 
 ## Use Cases
 - **Customer Registration**: Register on the platform, providing necessary personal information and location details.
