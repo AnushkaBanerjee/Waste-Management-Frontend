@@ -6,12 +6,35 @@ import axios from 'axios';
 import { Backend_url } from '../../../BackendUrl';
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
+import { Avatar } from "@nextui-org/react";
 
 const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
   const navigate = useNavigate();
   const mapContainerRef = useRef(null);
   const [formData, setFormData] = useState(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [requests, setRequests] = useState([]);
+
+  const openReq = async () => {
+    try {
+      const accessToken = getCookie('accessToken');
+      if (!accessToken) {
+        console.error("Access token not found");
+        return null;
+      }
+      const response = await axios.get(`${Backend_url}/api/v1/request/view?pickupId=${selectedId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      const requestsGot = response.data.data;
+      setRequests(requestsGot);
+
+    } catch (error) {
+      console.error(error);
+    }
+    onOpen();
+  };
 
   const getCookie = (name) => {
     const cookieString = document.cookie;
@@ -190,25 +213,80 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
         </TableContainer>
       </div>
       <div className='flex justify-between mt-8'>
-        <Button variant='outlined' onClick={() => window.location.reload()}>Back</Button>
-        {formData.status === "scheduled" && <Button variant='contained' color='success'>Mark Payment Done</Button>}
-        {formData.status === "pending" && <Button variant='contained' color='primary' onClick={onOpen}>View Request</Button>}
+        <Button color="success" variant='outlined' onClick={() => window.location.reload()}>Back</Button>
+        {formData.status === "scheduled" && <Button variant='contained' color='primary'>Mark Payment Done</Button>}
+        {formData.status === "pending" && <Button variant='contained' color="success" onClick={openReq}>View Request</Button>}
       </div>
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior={'inside'} backdrop='blur'>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior={'inside'} backdrop='blur' className='my-auto'>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">All Requests</ModalHeader>
               <ModalBody>
 
-                <Accordion variant="splitted" className=' rounded-lg bg-transparent '>
-                  <AccordionItem key="1" aria-label="Accordion 1" title={'hi'} >
-                    
-                  </AccordionItem>
-                </Accordion>
+                {
+                  requests.map((request, index) => {
+                    const totalRequestOfferPrice = formData.items.reduce((sum, item, i) => {
+                      const offerPrice = request.reqPrice[0].split(',')[i];
+                      return sum + (parseInt(item.quantity) * parseInt(offerPrice));
+                    }, 0);
 
+                    return (
+                      <Accordion key={index} variant="splitted" className='rounded-lg bg-transparent'>
+                        <AccordionItem title={request.owner.fullName}>
+                          <div className='flex flex-col gap-2'>
+                            <div className='flex justify-center items-center'>
+                              <Avatar src={request.owner.avatar} className="w-20 h-20 text-large" />
+                            </div>
 
+                            <p className='text-lg font-medium'>Worker Name: {request.owner.fullName}</p>
+                            <p className='text-lg font-medium'>Worker Phone: {request.owner.contactNo}</p>
+                            <p className='text-lg font-medium'>Worker Address: {request.owner.address}</p>
+
+                            <Table>
+                              <TableHead className='text-xs uppercase '>
+                                <TableRow>
+                                  <TableCell><strong>Category Name</strong></TableCell>
+                                  <TableCell><strong>Quantity (Kg)</strong></TableCell>
+                                  <TableCell><strong>Description</strong></TableCell>
+                                  <TableCell><strong>Demand Price/Kg</strong></TableCell>
+                                  <TableCell><strong>Offer Price/Kg</strong></TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                {formData.items.map((item, index) => (
+                                  <TableRow key={index}>
+                                    <TableCell><strong>{item.category}</strong></TableCell>
+                                    <TableCell>{item.quantity}</TableCell>
+                                    <TableCell>{item.description}</TableCell>
+                                    <TableCell>{item.price}</TableCell>
+                                    <TableCell>{request.reqPrice[0].split(',')[index]}</TableCell>
+                                  </TableRow>
+                                ))}
+                                <TableRow>
+                                  <TableCell colSpan={1}><strong>Total:</strong></TableCell>
+                                  <TableCell><strong>{totalQuantity}</strong></TableCell>
+                                  <TableCell></TableCell>
+                                  <TableCell><strong>{totalPrice}</strong></TableCell>
+                                  <TableCell><strong>{totalRequestOfferPrice}</strong></TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                            <div className='my-6 flex gap-6'>
+                              <Button color="primary" variant='contained' onClick={
+                                () => {
+                                  window.location.href = `tel:${request.owner.contactNo}`;
+                                }
+                              }>Call</Button>
+                              <Button color="success" variant='contained'>Accept Request</Button>
+                            </div>
+                          </div>
+                        </AccordionItem>
+                      </Accordion>
+                    );
+                  })
+                }
               </ModalBody>
               <ModalFooter>
                 <Button color="error" variant="contained" onClick={onClose}>
