@@ -36,6 +36,26 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
     onOpen();
   };
 
+
+  const accept = async (request) => {
+    try {
+      const accessToken = getCookie('accessToken');
+      if (!accessToken) {
+        console.error("Access token not found");
+        return null;
+      }
+      const response = await axios.post(`${Backend_url}/api/v1/request/accept?requestId=${request._id}`,{}, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   const getCookie = (name) => {
     const cookieString = document.cookie;
     const cookies = cookieString.split('; ');
@@ -279,7 +299,7 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
                                   window.location.href = `tel:${request.owner.contactNo}`;
                                 }
                               }>Call</Button>
-                              <Button color="success" variant='contained'>Accept Request</Button>
+                              <Button color="success" variant='contained' onClick={()=>{accept(request)}}>Accept Request</Button>
                             </div>
                           </div>
                         </AccordionItem>
