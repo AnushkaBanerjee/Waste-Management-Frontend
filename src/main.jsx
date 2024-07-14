@@ -34,7 +34,7 @@ const router = createBrowserRouter(
       <Route path="" element={<LandingPageMain />}/>
         
       <Route loader={customerInfoLoader} path="/Customer/" element={<CustomerDashboard />}>
-        <Route path="Home" element={<CustomerHome />} />
+        <Route path="Home" loader={customerInfoLoader} element={<CustomerHome />} />
         <Route path="Analytics" loader={customerInfoLoader} element={<CustomerAnalytics />} />
         <Route path="Add-Pickup" loader={customerInfoLoader} element={<CreatePickup />} />
         {/* <Route path="Progress" element={<StudentProgress />} />
