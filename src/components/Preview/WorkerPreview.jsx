@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import tt from '@tomtom-international/web-sdk-maps';
+import ttServices from '@tomtom-international/web-sdk-services';
 import axios from 'axios';
 import { Backend_url } from '../../../BackendUrl';
 import { useDisclosure } from "@nextui-org/react";
@@ -45,6 +46,8 @@ const WorkerPreview = ({ step, setStep, selectedId, setSelectedId, getPickups })
                 date: new Date(result.pickup.createdAt).toLocaleString(),
                 status: result.pickup.status,
                 workerName: result.worker?.fullName,
+                latitude: result.pickup?.location[0],
+                longitude: result.pickup?.location[1],
                 pickupTime: new Date(result.pickup.timeArrival).toLocaleString(),
                 imageUrl: result.pickup.thumbnail,
                 items: result.pickup.items.map((item, index) => ({
@@ -83,13 +86,39 @@ const WorkerPreview = ({ step, setStep, selectedId, setSelectedId, getPickups })
                         .setLngLat([longitude, latitude])
                         .addTo(map);
 
+                    const destinationMarker = new tt.Marker()
+                        .setLngLat([formData.longitude, formData.latitude])
+                        .addTo(map);
+
+                    ttServices.services
+                        .calculateRoute({
+                            key: import.meta.env.VITE_TOM_TOM_API_KEY,
+                            locations: [[longitude, latitude], [formData.longitude, formData.latitude]],
+                        })
+                        .then(routeData => {
+                            const geojson = routeData.toGeoJson();
+                            const routeLayer = {
+                                id: 'route',
+                                type: 'line',
+                                source: {
+                                    type: 'geojson',
+                                    data: geojson,
+                                },
+                                paint: {
+                                    'line-color': 'green',
+                                    'line-width': 6,
+                                },
+                            };
+                            map.addLayer(routeLayer);
+                        });
+
                     return () => map.remove();
                 });
             } else {
                 console.error("Geolocation is not supported by this browser.");
             }
         }
-    }, [mapContainerRef.current]);
+    }, [mapContainerRef.current, formData]);
 
     const handleInputChange = (index, value) => {
         const updatedValues = [...inputValues];
@@ -97,8 +126,8 @@ const WorkerPreview = ({ step, setStep, selectedId, setSelectedId, getPickups })
         setInputValues(updatedValues);
     };
 
-    const handleSubmit = async() => {
-        const finalValues = inputValues.map((value, index) => formData.items[index].price === 0 ? 0 : value); 
+    const handleSubmit = async () => {
+        const finalValues = inputValues.map((value, index) => formData.items[index].price === 0 ? 0 : value);
         try {
             const accessToken = getCookie('accessToken');
             if (!accessToken) {
@@ -116,7 +145,7 @@ const WorkerPreview = ({ step, setStep, selectedId, setSelectedId, getPickups })
         } catch (error) {
             console.error(error);
         }
-        
+
     };
 
     if (!formData) {
@@ -206,7 +235,7 @@ const WorkerPreview = ({ step, setStep, selectedId, setSelectedId, getPickups })
                                     <TableCell>{item.description}</TableCell>
                                     <TableCell>{item.price}</TableCell>
                                     <TableCell>
-                                    
+
                                         <TextField
                                             type="number"
                                             value={parseFloat(inputValues[index])}

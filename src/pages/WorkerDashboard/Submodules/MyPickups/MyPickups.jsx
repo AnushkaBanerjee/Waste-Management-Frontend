@@ -15,6 +15,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import ScheduleDialog from './ScheduleDialog'; // Adjust the path as necessary
+import FinalPreview from '../../../../components/Preview/FinalPreview';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,7 +41,9 @@ function MyPickups() {
   const [pickups, setPickups] = useState([]);
   const [yourId, setYourId] = useState();
   const [openScheduleDialog, setOpenScheduleDialog] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const [selectedPickup, setSelectedPickup] = useState(null);
+  const [step, setStep] = useState(1);
   const data = useLoaderData();
 
   const getCookie = (name) => {
@@ -127,7 +130,7 @@ function MyPickups() {
     }}>
       <Banner customer={userData?.data.fullName} page="Explore New Pickups" />
 
-      <TableContainer component={Paper}>
+      {step==1 && <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table" stickyHeader>
           <TableHead>
             <TableRow>
@@ -157,14 +160,23 @@ function MyPickups() {
                       setSelectedPickup(pickup);
                       handleOpenScheduleDialog(pickup)
                     }}>Schedule Time</Button>
-                    <Button color="success" variant="contained">View</Button>
+                    <Button color="success" variant="contained" onClick={
+                      () => {
+                        setSelectedId(pickup._id);
+                        setStep(2);
+                      }
+                    }>View</Button>
                   </div>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>}
+      {step==2 && <FinalPreview step={step} setStep={setStep}
+         selectedId={selectedId} setSelectedId={setSelectedId} 
+         getPickups={getPickups}
+         />}
 
       <ScheduleDialog
         open={openScheduleDialog}
