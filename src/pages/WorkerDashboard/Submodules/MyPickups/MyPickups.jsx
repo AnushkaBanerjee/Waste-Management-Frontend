@@ -93,7 +93,6 @@ function MyPickups() {
   };
 
   const handleScheduleSubmit = async(date) => {
-    const pickupTime = new Date(date);
     try{
       const accessToken = getCookie('accessToken');
       if (!accessToken) {
@@ -101,13 +100,12 @@ function MyPickups() {
         return null;
       }
       const response = await axios.post(`${Backend_url}/api/v1/pickup/worker/giveTime?id=${selectedPickup._id}`, {
-        time: pickupTime
+        time: date
       }, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
       });
-      console.log(response.data);
     }
     catch(error){
       console
@@ -155,10 +153,10 @@ function MyPickups() {
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <div className='flex justify-end gap-4'>
-                    {pickup.status === "accepted" && <Button variant="contained" onClick={() => {
+                    <Button variant="contained" onClick={() => {
                       setSelectedPickup(pickup);
                       handleOpenScheduleDialog(pickup)
-                    }}>Schedule Time</Button>}
+                    }}>Schedule Time</Button>
                     <Button color="success" variant="contained">View</Button>
                   </div>
                 </StyledTableCell>

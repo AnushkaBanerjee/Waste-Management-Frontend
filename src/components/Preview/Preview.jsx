@@ -105,6 +105,7 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
         date: new Date(result.pickup.createdAt).toLocaleString(),
         status: result.pickup.status,
         workerName: result.worker?.fullName,
+        workerPhone: result.worker?.contactNo,
         pickupTime: new Date(result.pickup.timeArrival).toLocaleString(),
         imageUrl: result.pickup.thumbnail,
         items: result.pickup.items.map((item, index) => ({
@@ -254,6 +255,11 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
         <Button color="success" variant='outlined' onClick={() => window.location.reload()}>Back</Button>
         {formData.status === "scheduled" && <Button variant='contained' color='primary' onClick={paymentDone}>Mark Payment Done</Button>}
         {formData.status === "pending" && <Button variant='contained' color="success" onClick={openReq}>View Request</Button>}
+        {formData.status !== "pending" && formData.status !== "cancelled" && <Button variant='contained' color="success" onClick={
+          () => {
+            window.location.href = `tel:${formData.workerPhone}`;
+          }
+        }>Call {formData.workerName}</Button>}
       </div>
 
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior={'inside'} backdrop='blur' className='my-auto'>
