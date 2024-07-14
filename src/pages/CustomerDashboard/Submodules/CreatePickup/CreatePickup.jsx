@@ -12,6 +12,7 @@ function CreatePickup
 () {
   const [userData, setUserData] = useState();
   const [step,setStep] = useState(0);
+  const [thumbnail, setThumbnail] = useState(null);
     const data = useLoaderData()
   
     useEffect(() => {
@@ -30,8 +31,8 @@ function CreatePickup
       <div className="flex flex-wrap gap-2 px-2 py-8 lg:gap-11 lg:p-4">
 
         {step === 0 && <GetLocation step={step} setStep={setStep} />}
-        {step === 1 && <AddItem step={step} setStep={setStep} />}
-        {step === 2 && <PreviewItem step={step} setStep={setStep} />}
+        {step === 1 && <AddItem step={step} setStep={setStep} setThumbnail={setThumbnail} thumbnail={thumbnail} />}
+        {step === 2 && <PreviewItem step={step} setStep={setStep} thumbnail={thumbnail} />}
         
       </div>
     </div>
