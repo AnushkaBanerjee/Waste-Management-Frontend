@@ -299,7 +299,7 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
                                     <TableCell>{item.quantity}</TableCell>
                                     <TableCell>{item.description}</TableCell>
                                     <TableCell>{item.price}</TableCell>
-                                    <TableCell>{request.reqPrice[0].split(',')[index]}</TableCell>
+                                    <TableCell>{request.reqPrice[index]}</TableCell>
                                   </TableRow>
                                 ))}
                                 <TableRow>
