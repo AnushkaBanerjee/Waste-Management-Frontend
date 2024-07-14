@@ -141,7 +141,7 @@ const FinalPreview = ({ step, setStep, selectedId, setSelectedId, getPickups }) 
   useEffect(() => {
     getDetails();
     getComments();
-  }, [handleSubmit]);
+  }, []);
 
   useEffect(() => {
     if (mapContainerRef.current) {

@@ -71,54 +71,54 @@ const WorkerPreview = ({ step, setStep, selectedId, setSelectedId, getPickups })
 
     useEffect(() => {
         if (mapContainerRef.current) {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(position => {
-                    const { latitude, longitude } = position.coords;
-
-                    const map = tt.map({
-                        key: import.meta.env.VITE_TOM_TOM_API_KEY,
-                        container: mapContainerRef.current,
-                        center: [longitude, latitude],
-                        zoom: 18,
-                    });
-
-                    const marker = new tt.Marker()
-                        .setLngLat([longitude, latitude])
-                        .addTo(map);
-
-                    const destinationMarker = new tt.Marker()
-                        .setLngLat([formData.longitude, formData.latitude])
-                        .addTo(map);
-
-                    ttServices.services
-                        .calculateRoute({
-                            key: import.meta.env.VITE_TOM_TOM_API_KEY,
-                            locations: [[longitude, latitude], [formData.longitude, formData.latitude]],
-                        })
-                        .then(routeData => {
-                            const geojson = routeData.toGeoJson();
-                            const routeLayer = {
-                                id: 'route',
-                                type: 'line',
-                                source: {
-                                    type: 'geojson',
-                                    data: geojson,
-                                },
-                                paint: {
-                                    'line-color': 'green',
-                                    'line-width': 6,
-                                },
-                            };
-                            map.addLayer(routeLayer);
-                        });
-
-                    return () => map.remove();
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+              const { latitude, longitude } = position.coords;
+    
+              const map = tt.map({
+                key: import.meta.env.VITE_TOM_TOM_API_KEY,
+                container: mapContainerRef.current,
+                center: [longitude, latitude],
+                zoom: 18,
+              });
+    
+              const marker = new tt.Marker()
+                .setLngLat([longitude, latitude])
+                .addTo(map);
+    
+              const destinationMarker = new tt.Marker()
+                .setLngLat([formData.longitude, formData.latitude])
+                .addTo(map);
+    
+              ttServices.services
+                .calculateRoute({
+                  key: import.meta.env.VITE_TOM_TOM_API_KEY,
+                  locations: [[longitude, latitude], [formData.longitude, formData.latitude]],
+                })
+                .then(routeData => {
+                  const geojson = routeData.toGeoJson();
+                  const routeLayer = {
+                    id: 'route',
+                    type: 'line',
+                    source: {
+                      type: 'geojson',
+                      data: geojson,
+                    },
+                    paint: {
+                      'line-color': 'green',
+                      'line-width': 6,
+                    },
+                  };
+                  map.addLayer(routeLayer);
                 });
-            } else {
-                console.error("Geolocation is not supported by this browser.");
-            }
+    
+              return () => map.remove();
+            });
+          } else {
+            console.error("Geolocation is not supported by this browser.");
+          }
         }
-    }, [mapContainerRef.current, formData]);
+      }, [mapContainerRef.current, formData]);
 
     const handleInputChange = (index, value) => {
         const updatedValues = [...inputValues];
