@@ -34,7 +34,8 @@ Susswacha connects users with local rag pickers to address waste management issu
 - **Navigation and Directions**: Workers can view customer locations on a map and get directions for efficient pickups.
 - **Payment System**: Secure transactions through an integrated payment gateway.
 
-<a href="https://ibb.co/RbjWsxc"><img src="https://i.ibb.co/YQ0G1zh/Dashboard.png" alt="Dashboard" border="0"></a>
+
+![Dashboard](https://github.com/user-attachments/assets/e6d827b7-d110-44dd-8803-09e5e7d5c581)
 
 ## Perks
 - **Seamless Connection**: Effortlessly connect customers with local rag pickers for efficient waste management.
