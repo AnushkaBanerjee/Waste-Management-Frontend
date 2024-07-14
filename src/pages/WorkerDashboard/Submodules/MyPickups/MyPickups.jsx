@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Banner from '../../../../components/Global/Banner/Banner';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Backend_url } from '../../../../../BackendUrl';
 import { useLoaderData } from 'react-router-dom';
@@ -15,6 +14,7 @@ import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
+import ScheduleDialog from './ScheduleDialog'; // Adjust the path as necessary
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,31 +30,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
 }));
 
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-function MyPickups
-  () {
+function MyPickups() {
   const [userData, setUserData] = useState();
-  const data = useLoaderData()
+  const [pickups, setPickups] = useState([]);
+  const [yourId, setYourId] = useState();
+  const [openScheduleDialog, setOpenScheduleDialog] = useState(false);
+  const [selectedPickup, setSelectedPickup] = useState(null);
+  const data = useLoaderData();
 
-  
   const getCookie = (name) => {
     const cookieString = document.cookie;
     const cookies = cookieString.split('; ');
@@ -79,18 +67,55 @@ function MyPickups
           Authorization: `Bearer ${accessToken}`
         }
       });
-      // console.log(response.data.data);
 
+      const filteredPickups = response.data.data.pickups.filter(pickup => pickup.worker?.toString() === response.data.data.current_user._id.toString());
+
+      setPickups(filteredPickups);
+      setYourId(response.data.data.current_user._id);
     } catch (error) {
       console.log(error);
     }
   };
 
-
   useEffect(() => {
     setUserData(data);
     getPickups();
-  }, []);
+  }, [data]);
+
+  const handleOpenScheduleDialog = (pickup) => {
+    setSelectedPickup(pickup);
+    setOpenScheduleDialog(true);
+  };
+
+  const handleCloseScheduleDialog = () => {
+    setOpenScheduleDialog(false);
+    setSelectedPickup(null);
+  };
+
+  const handleScheduleSubmit = async(date) => {
+    const pickupTime = new Date(date);
+    try{
+      const accessToken = getCookie('accessToken');
+      if (!accessToken) {
+        console.error("Access token not found");
+        return null;
+      }
+      const response = await axios.post(`${Backend_url}/api/v1/pickup/worker/giveTime?id=${selectedPickup._id}`, {
+        time: pickupTime
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      console.log(response.data);
+    }
+    catch(error){
+      console
+    }
+    window.location.reload();
+    // Add your scheduling logic here, e.g., sending a request to the backend
+  };
+
   return (
     <div style={{
       height: "calc(100vh - 4.3rem)",
@@ -104,10 +129,8 @@ function MyPickups
     }}>
       <Banner customer={userData?.data.fullName} page="Explore New Pickups" />
 
-
-
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table" stickyHeader >
+        <Table sx={{ minWidth: 700 }} aria-label="customized table" stickyHeader>
           <TableHead>
             <TableRow>
               <StyledTableCell align="center"></StyledTableCell>
@@ -118,24 +141,24 @@ function MyPickups
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+            {pickups?.map((pickup) => (
+              <StyledTableRow key={pickup._id}>
                 <StyledTableCell align="center">
                   <div className='flex justify-center items-center'>
-                    <Avatar alt="Cindy Baker" src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
+                    <Avatar alt={pickup.owner.fullName} src={pickup.owner.avatar} />
                   </div>
-
                 </StyledTableCell>
-                <StyledTableCell align="center">{row.name}</StyledTableCell>
-                <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                <StyledTableCell align="center">{pickup.owner.fullName}</StyledTableCell>
+                <StyledTableCell align="center">{pickup._id}</StyledTableCell>
                 <StyledTableCell align="center">
-                <Chip label="accepted" color="warning" />
-                <Chip label="scheduled" color="primary" />
-                <Chip label="completed" color="success" />
+                  <Chip label={pickup.status} color={pickup.status === 'accepted' ? 'warning' : pickup.status === 'scheduled' ? 'primary' : 'success'} />
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <div className='flex justify-end gap-4'>
-                    <Button  variant="contained">Schedule Time</Button>
+                    {pickup.status === "accepted" && <Button variant="contained" onClick={() => {
+                      setSelectedPickup(pickup);
+                      handleOpenScheduleDialog(pickup)
+                    }}>Schedule Time</Button>}
                     <Button color="success" variant="contained">View</Button>
                   </div>
                 </StyledTableCell>
@@ -145,11 +168,13 @@ function MyPickups
         </Table>
       </TableContainer>
 
-
-
-
+      <ScheduleDialog
+        open={openScheduleDialog}
+        onClose={handleCloseScheduleDialog}
+        onSubmit={handleScheduleSubmit}
+      />
     </div>
-  )
+  );
 }
 
 export default MyPickups;
