@@ -266,7 +266,7 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
                 {
                   requests.map((request, index) => {
                     const totalRequestOfferPrice = formData.items.reduce((sum, item, i) => {
-                      const offerPrice = request.reqPrice[0].split(',')[i];
+                      const offerPrice = request.reqPrice[i];
                       return sum + (parseInt(item.quantity) * parseInt(offerPrice));
                     }, 0);
 
