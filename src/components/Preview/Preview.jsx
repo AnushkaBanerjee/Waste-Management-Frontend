@@ -15,6 +15,24 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [requests, setRequests] = useState([]);
 
+  const paymentDone = async () => {
+    try {
+      const accessToken = getCookie('accessToken');
+      if (!accessToken) {
+        console.error("Access token not found");
+        return null;
+      }
+      const response = await axios.post(`${Backend_url}/api/v1/pickup/paymentDone?id=${selectedId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const openReq = async () => {
     try {
       const accessToken = getCookie('accessToken');
@@ -91,10 +109,10 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
         imageUrl: result.pickup.thumbnail,
         items: result.pickup.items.map((item, index) => ({
           category: item,
-          quantity: result.pickup.qty[0].split(',')[index],
-          description: result.pickup.itemDescription[0].split(',')[index],
-          price: result.pickup.customerPrice[0].split(',')[index],
-          offerPrice: result.pickup.workerPrice.length > 0 ? result.pickup.workerPrice[0].split(',')[index] : 0,
+          quantity: result.pickup.qty[index],
+          description: result.pickup.itemDescription[index],
+          price: result.pickup.customerPrice[index],
+          offerPrice: result.pickup.workerPrice.length > 0 ? result.pickup.workerPrice[index] : 0,
         })),
       };
       setFormData(fetchedData);
@@ -234,7 +252,7 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
       </div>
       <div className='flex justify-between mt-8'>
         <Button color="success" variant='outlined' onClick={() => window.location.reload()}>Back</Button>
-        {formData.status === "scheduled" && <Button variant='contained' color='primary'>Mark Payment Done</Button>}
+        {formData.status === "scheduled" && <Button variant='contained' color='primary' onClick={paymentDone}>Mark Payment Done</Button>}
         {formData.status === "pending" && <Button variant='contained' color="success" onClick={openReq}>View Request</Button>}
       </div>
 
