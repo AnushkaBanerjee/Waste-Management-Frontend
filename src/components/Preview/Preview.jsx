@@ -22,7 +22,7 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
         console.error("Access token not found");
         return null;
       }
-      const response = await axios.post(`${Backend_url}/api/v1/pickup/paymentDone?id=${selectedId}`, {}, {
+      const response = await axios.post(`${Backend_url}/api/v1/pickup/markAsPaid?id=${selectedId}`, {}, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
