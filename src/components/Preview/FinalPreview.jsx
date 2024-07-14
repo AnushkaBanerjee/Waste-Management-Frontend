@@ -8,7 +8,7 @@ import { Backend_url } from '../../../BackendUrl';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import { Avatar } from "@nextui-org/react";
 import SendIcon from '@mui/icons-material/Send';
-import { Input,Chip,User } from "@nextui-org/react";
+import { Input, Chip, User } from "@nextui-org/react";
 
 const FinalPreview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
   const navigate = useNavigate();
@@ -304,6 +304,11 @@ const FinalPreview = ({ step, setStep, selectedId, setSelectedId, getPickups }) 
         {formData.status !== "pending" && formData.status !== "cancelled" && <Button variant='contained' color="success" onClick={() => {
           onOpen1();
         }}>Chat With {formData.ownerName}</Button>}
+        {formData.status == "scheduled" && <Button variant='contained' color="success">Pay Online <span className='ml-2'><Chip variant="shadow"
+          classNames={{
+            base: "bg-gradient-to-br from-indigo-500 to-pink-500 border-small border-white-default/50 shadow-pink-500/30",
+            content: "drop-shadow shadow-black text-white-default",
+          }}>Coming Soon !</Chip></span></Button>}
       </div>
       <Modal backdrop="blur" isOpen={isOpen1} onClose={closeModal} scrollBehavior="inside" className='h-auto my-auto' size="lg">
         <ModalContent>
