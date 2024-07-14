@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import tt from '@tomtom-international/web-sdk-maps';
 import axios from 'axios';
 import { Backend_url } from '../../../BackendUrl';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 
 const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
   const navigate = useNavigate();
   const mapContainerRef = useRef(null);
   const [formData, setFormData] = useState(null);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const getCookie = (name) => {
     const cookieString = document.cookie;
@@ -189,8 +191,42 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
       <div className='flex justify-between mt-8'>
         <Button variant='outlined' onClick={() => window.location.reload()}>Back</Button>
         {formData.status === "scheduled" && <Button variant='contained' color='success'>Mark Payment Done</Button>}
-        {formData.status === "pending" && <Button variant='contained' color='primary'>View Request</Button>}
+        {formData.status === "pending" && <Button variant='contained' color='primary' onClick={onOpen}>View Request</Button>}
       </div>
+
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior={'inside'} backdrop='blur'>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">All Requests</ModalHeader>
+              <ModalBody>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
+                  dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis.
+                  Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.
+                  Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur
+                  proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="error" variant="contained" onClick={onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };
