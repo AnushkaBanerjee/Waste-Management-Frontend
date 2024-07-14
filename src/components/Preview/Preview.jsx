@@ -106,7 +106,7 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
         status: result.pickup.status,
         workerName: result.worker?.fullName,
         workerPhone: result.worker?.contactNo,
-        pickupTime: new Date(result.pickup.timeArrival).toLocaleString(),
+        pickupTime: new Date(result.pickup?.timeArrival).toLocaleString(),
         imageUrl: result.pickup.thumbnail,
         items: result.pickup.items.map((item, index) => ({
           category: item,
@@ -197,7 +197,7 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
             </span>
           </p>
         )}
-        {formData.status === "completed" && formData.status === "scheduled" &&
+        {formData.status === "completed" || formData.status === "scheduled" &&
           <p className='text-xl font-medium'>
             Pickup Time:{" "}
             <span className='text-[#6b738b] font-normal'>
