@@ -8,7 +8,7 @@
 ## Introduction
 Susswacha connects users with local rag pickers to address waste management issues efficiently. Our user-friendly platform ensures centralized connection, accessibility, trust, and transparent pricing. Customers can easily find and connect with rag pickers to sell their recyclable items, fostering a cleaner environment and promoting recycling.
 
-![LandingCollage](https://github.com/ANKIT-BISWAS-20/E-Learning-Client/assets/91245104/54b5bd94-3e67-4a0d-8007-e7ef1850ce34)
+![LandingCollage](https://i.ibb.co/TcQHBPP/Landing-Collage.png)
 
 ## Technology Stack
 - **Design**:
@@ -34,7 +34,7 @@ Susswacha connects users with local rag pickers to address waste management issu
 - **Navigation and Directions**: Workers can view customer locations on a map and get directions for efficient pickups.
 - **Payment System**: Secure transactions through an integrated payment gateway.
 
-![Dashboard](https://github.com/ANKIT-BISWAS-20/E-Learning-Client/assets/91245104/f85f4bec-cc7d-4f62-8e82-1e072760d456)
+![Dashboard](https://i.ibb.co/YQ0G1zh/Dashboard.png)
 
 ## Perks
 - **Seamless Connection**: Effortlessly connect customers with local rag pickers for efficient waste management.
