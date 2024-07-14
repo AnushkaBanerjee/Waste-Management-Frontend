@@ -21,7 +21,7 @@ const columns = [
 
 export default function CustomerPickupHistory() {
   const [pickups, setPickups] = useState([]);
-  
+  const [isChange,setIsChange] = useState(0);
   const getCookie = (name) => {
     const cookieString = document.cookie;
     const cookies = cookieString.split('; ');
@@ -55,14 +55,31 @@ export default function CustomerPickupHistory() {
 
   useEffect(() => {
     getPickups();
-  }, []);
+  }, [isChange,setIsChange]);
 
   const handlePreview = (id) => {
     alert(`Preview pickup ID: ${id}`);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async(id) => {
     alert(`Delete pickup ID: ${id}`);
+    try {
+      const accessToken = getCookie('accessToken');
+      if (!accessToken) {
+        console.error("Access token not found");
+        return null;
+      }
+      const response = await axios.delete(`${Backend_url}/api/v1/pickup/delete?id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      
+      setIsChange(1-isChange);
+      
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const renderCell = React.useCallback((pickup, columnKey) => {
