@@ -73,7 +73,7 @@ function WorkerAnalytics() {
                 customerAnalytics.totalContribution.forEach(contribution => {
                     Quantity.push(contribution.qty);
                     TotalAmount.push(parseFloat(contribution.totalAmount));
-                    ids.push(toString(contribution._id));
+                    ids.push(new Date(contribution._id).toLocaleString());
                 });
 
                 setAmount(TotalAmount);
@@ -267,7 +267,7 @@ function WorkerAnalytics() {
                 {chart === 4 && (
                     <div className='text-center'>
                         <div className='text-left pl-4'>
-                            <h1 className='my-6 text-xl'>Waste Collected</h1>
+                            <h1 className='my-6 text-xl'>Waste Collected in Kg</h1>
                         </div>
 
                         <div className='w-full xl:w-2/3 mx-auto'>
