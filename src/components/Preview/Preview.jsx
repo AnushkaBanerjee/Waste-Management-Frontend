@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import tt from '@tomtom-international/web-sdk-maps';
 import axios from 'axios';
 import { Backend_url } from '../../../BackendUrl';
+import { Accordion, AccordionItem } from "@nextui-org/react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 
 const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
@@ -200,23 +201,14 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
             <>
               <ModalHeader className="flex flex-col gap-1">All Requests</ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                  dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis.
-                  Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.
-                  Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur
-                  proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+
+                <Accordion variant="splitted" className=' rounded-lg bg-transparent '>
+                  <AccordionItem key="1" aria-label="Accordion 1" title={'hi'} >
+                    
+                  </AccordionItem>
+                </Accordion>
+
+
               </ModalBody>
               <ModalFooter>
                 <Button color="error" variant="contained" onClick={onClose}>
