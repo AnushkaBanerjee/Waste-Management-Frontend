@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Backend_url } from '../../../../../BackendUrl';
 import { useLoaderData } from 'react-router-dom';
-import PickupHistory from './Submodules/PickupHistory/PickupHistory';
 
-function WorkerHome
+function MyPickups
 () {
   const [userData, setUserData] = useState();
     const data = useLoaderData()
@@ -27,7 +26,7 @@ function WorkerHome
     
         
         
-        <PickupHistory />
+
 
        
         
@@ -36,4 +35,4 @@ function WorkerHome
   )
 }
 
-export default WorkerHome;
+export default MyPickups;

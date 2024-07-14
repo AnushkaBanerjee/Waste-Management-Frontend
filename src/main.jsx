@@ -19,6 +19,7 @@ import WorkerHome from './pages/WorkerDashboard/Submodules/Home/Home'
 
 import CustomerAnalytics from './pages/CustomerDashboard/Submodules/Analytics/Analytics'
 import WorkerAnalytics from './pages/WorkerDashboard/Submodules/Analytics/Analytics'
+import MyPickups from './pages/WorkerDashboard/Submodules/MyPickups/MyPickups'
 
 
 const router = createBrowserRouter(
@@ -44,6 +45,8 @@ const router = createBrowserRouter(
       <Route path="/Worker/" loader={workerInfoLoader} element={<WorkerDashboardMain />}>
         <Route path="Home" loader={workerInfoLoader} element={<WorkerHome />} />
         <Route path="Analytics" loader={workerInfoLoader} element={<WorkerAnalytics />} />
+        <Route path="My-Pickups" loader={workerInfoLoader} element={<MyPickups />} />
+
       </Route>
  
     </Route>

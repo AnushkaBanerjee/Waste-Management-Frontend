@@ -13,7 +13,7 @@ function WorkerDashboardMain() {
     const menuItems = [
         { id: 1, name: "Home", route: "Worker/Home", icon: "worker/Home" },
         { id: 2, name: "Analytics", route: "Worker/Analytics", icon: "chart-bar" },
-        { id: 3, name: "My Pickups", route: "Worker/Roadmap", icon: "tasks" },
+        { id: 3, name: "My Pickups", route: "Worker/My-Pickups", icon: "tasks" },
     ];
     const data = useLoaderData()
     const [avatar, setAvatar] = useState()
