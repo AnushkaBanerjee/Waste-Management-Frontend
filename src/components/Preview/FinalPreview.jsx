@@ -7,6 +7,8 @@ import axios from 'axios';
 import { Backend_url } from '../../../BackendUrl';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import { Avatar } from "@nextui-org/react";
+import SendIcon from '@mui/icons-material/Send';
+import { Input,Chip,User } from "@nextui-org/react";
 
 const FinalPreview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
   const navigate = useNavigate();
@@ -14,6 +16,76 @@ const FinalPreview = ({ step, setStep, selectedId, setSelectedId, getPickups }) 
   const [formData, setFormData] = useState(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [requests, setRequests] = useState([]);
+  const { isOpen: isOpen1, onOpen: onOpen1, onClose } = useDisclosure(); // Ensure correct usage of useDisclosure
+  const [newComment, setNewComment] = React.useState('');
+  const [comments, setComments] = React.useState([]);
+  const closeModal = () => {
+    onClose();
+  };
+
+  const getComments = async () => {
+    try {
+      const accessToken = getCookie('accessToken');
+      if (!accessToken) {
+        console.error("Access token not found");
+        return null;
+      }
+
+      const response = await axios.get(`${Backend_url}/api/v1/comment/get-all-comments?pickupId=${selectedId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+
+      // console.log(response.data.data);
+
+      if (response.data && response.data.success) {
+        const response2 = response.data.data.map(submission => ({
+          id: submission._id,
+          message: submission.message,
+          senderName: submission.sender.fullName,
+          senderAvatar: submission.sender.avatar,
+          time: submission.createdAt
+        }));
+        setComments(response2);
+      } else {
+        console.error("Error fetching submissions:", response.data.message);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching submissions:", error);
+      return null;
+    }
+  };
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+    if (newComment.trim() === '') return;
+    try {
+      const accessToken = getCookie('accessToken');
+      if (!accessToken) {
+        console.error("Access token not found");
+        return null;
+      }
+      const response = await axios.post(`${Backend_url}/api/v1/comment/create-comment?pickupId=${selectedId}`, {
+        message: newComment
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      if (response.data && response.data.success) {
+        getComments();
+      } else {
+        console.error("Error adding comment:");
+      }
+    }
+    catch (error) {
+      console.error("Error adding comment:", error);
+    }
+    setNewComment('');
+  };
 
   const getCookie = (name) => {
     const cookieString = document.cookie;
@@ -68,7 +140,8 @@ const FinalPreview = ({ step, setStep, selectedId, setSelectedId, getPickups }) 
 
   useEffect(() => {
     getDetails();
-  }, []);
+    getComments();
+  }, [handleSubmit]);
 
   useEffect(() => {
     if (mapContainerRef.current) {
@@ -228,7 +301,70 @@ const FinalPreview = ({ step, setStep, selectedId, setSelectedId, getPickups }) 
             window.location.href = `tel:${formData.ownerPhone}`;
           }
         }>Call {formData.ownerName}</Button>}
+        {formData.status !== "pending" && formData.status !== "cancelled" && <Button variant='contained' color="success" onClick={() => {
+          onOpen1();
+        }}>Chat With {formData.ownerName}</Button>}
       </div>
+      <Modal backdrop="blur" isOpen={isOpen1} onClose={closeModal} scrollBehavior="inside" className='h-auto my-auto' size="lg">
+        <ModalContent>
+          <ModalHeader className="flex flex-col gap-1">Chat</ModalHeader>
+          <ModalBody>
+            <div className="flex-col justify-between">
+              <div className="w-full flex-col space-y-4 my-4">
+
+                {comments?.map((comment, index) => (
+                  <div>
+                    <User
+                      name={
+                        <div>
+                          <p className="text-lg font-bold">{comment.senderName}</p>
+                          <div>
+                            <Chip color="success" variant="flat">{new Date(comment.time).toLocaleString()}</Chip>
+                          </div>
+
+                        </div>
+                      }
+                      className="mb-2"
+                      description={
+                        <div>
+                          <p className="text-sm">{comment.message}</p>
+                        </div>
+                      }
+                      avatarProps={{
+                        src: comment.senderAvatar,
+
+                      }}
+                    />
+                  </div>
+                ))}
+
+
+              </div>
+              <div className="flex gap-2">
+                <Input
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  name="comment"
+                  label="Chat"
+                  color="success"
+                  type="text"
+                  className="w-full"
+                  size="sm"
+                />
+                <Button color="success" variant='contained' radius="sm" size="lg"
+                  onClick={(e) => handleSubmit(e)}>
+                  <SendIcon />
+                </Button>
+              </div>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="error" variant="contained" onClick={closeModal}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };
