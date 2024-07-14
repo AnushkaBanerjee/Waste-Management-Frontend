@@ -3,8 +3,8 @@ import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import { useNavigate } from 'react-router-dom';
 import tt from '@tomtom-international/web-sdk-maps';
 
-const Preview = () => {
-  const navigateTo = useNavigate();
+const Preview = ({step,setStep,selectedId,setSelectedId,getPickups}) => {
+  const navigate = useNavigate();
   const mapContainerRef = useRef(null);
   const formData = {
     id: '4',
@@ -140,7 +140,12 @@ const Preview = () => {
         </TableContainer>
       </div>
       <div className='flex justify-between mt-8'>
-        <Button variant='outlined' onClick={() => navigateTo('/')}>Back</Button>
+        <Button variant='outlined' onClick={() => {
+          // setSelectedId(null);
+          // getPickups();
+          // setStep(0);  
+          window.location.reload();
+        }}>Back</Button>
         <Button variant='contained' color='success'>Mark Payment Done</Button>
         <Button variant='contained' color='primary'>View Request</Button>
       </div>

@@ -4,6 +4,7 @@ import { DeleteIcon } from "../Extras/DeleteIcon/DeleteIcon";
 import { EyeIcon } from "../Extras/EyeIcon/EyeIcon";
 import axios from "axios";
 import { Backend_url } from "../../../../../../../BackendUrl";
+import Preview from '../../../../../../components/Preview/Preview';
 
 const statusColorMap = {
   accepted: "success",
@@ -20,8 +21,10 @@ const columns = [
 ];
 
 export default function CustomerPickupHistory() {
+  const [step, setStep] = useState(1);
+  const [selectedId, setSelectedId] = useState(null);
   const [pickups, setPickups] = useState([]);
-  const [isChange,setIsChange] = useState(0);
+  const [isChange, setIsChange] = useState(0);
   const getCookie = (name) => {
     const cookieString = document.cookie;
     const cookies = cookieString.split('; ');
@@ -47,7 +50,7 @@ export default function CustomerPickupHistory() {
         }
       });
       setPickups(response.data.data);
-      
+
     } catch (error) {
       console.log(error);
     }
@@ -55,13 +58,14 @@ export default function CustomerPickupHistory() {
 
   useEffect(() => {
     getPickups();
-  }, [isChange,setIsChange]);
+  }, [isChange, setIsChange]);
 
   const handlePreview = (id) => {
-    alert(`Preview pickup ID: ${id}`);
+    setSelectedId(id);
+    setStep(2);
   };
 
-  const handleDelete = async(id) => {
+  const handleDelete = async (id) => {
     alert(`Delete pickup ID: ${id}`);
     try {
       const accessToken = getCookie('accessToken');
@@ -74,9 +78,9 @@ export default function CustomerPickupHistory() {
           Authorization: `Bearer ${accessToken}`
         }
       });
-      
-      setIsChange(1-isChange);
-      
+
+      setIsChange(1 - isChange);
+
     } catch (error) {
       console.log(error);
     }
@@ -98,16 +102,16 @@ export default function CustomerPickupHistory() {
         return (
           <div className="relative flex items-center gap-10">
             <Tooltip content="Preview">
-              <span 
-                className="text-lg text-default-400 cursor-pointer active:opacity-50" 
+              <span
+                className="text-lg text-default-400 cursor-pointer active:opacity-50"
                 onClick={() => handlePreview(pickup._id)}
               >
                 <EyeIcon />
               </span>
             </Tooltip>
             <Tooltip color="danger" content="Delete pickups">
-              <span 
-                className="text-lg text-danger cursor-pointer active:opacity-50" 
+              <span
+                className="text-lg text-danger cursor-pointer active:opacity-50"
                 onClick={() => handleDelete(pickup._id)}
               >
                 <DeleteIcon />
@@ -121,21 +125,31 @@ export default function CustomerPickupHistory() {
   }, []);
 
   return (
-    <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={pickups}>
-        {(item) => (
-          <TableRow key={item._id}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <>
+      {step == 1 &&
+        <Table aria-label="Example table with custom cells">
+          <TableHeader columns={columns}>
+            {(column) => (
+              <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
+                {column.name}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={pickups}>
+            {(item) => (
+              <TableRow key={item._id}>
+                {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      }
+      {step == 2 &&
+        <Preview step={step} setStep={setStep}
+         selectedId={selectedId} setSelectedId={setSelectedId} 
+         getPickups={getPickups}
+         />
+      }
+    </>
   );
 }
