@@ -101,7 +101,7 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
       <div className='mb-6'>
         <Typography variant='h4' className='text-center'>Pickup Details</Typography>
       </div>
-      <div className='mb-8'>
+      <div className='mb-8 space-y-2'>
         <p className='text-xl font-medium'>
           ID:{" "}
           <span className='text-[#6b738b] font-normal'>
