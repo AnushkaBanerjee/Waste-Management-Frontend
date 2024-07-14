@@ -127,21 +127,21 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
           </span>
         </p>
         {formData.status !== "pending" && formData.status !== "cancelled" && (
-          <>
-            <p className='text-xl font-medium'>
-              Worker Name:{" "}
-              <span className='text-[#6b738b] font-normal'>
-                {formData.workerName}
-              </span>
-            </p>
-            <p className='text-xl font-medium'>
-              Pickup Time:{" "}
-              <span className='text-[#6b738b] font-normal'>
-                {formData.pickupTime}
-              </span>
-            </p>
-          </>
+          <p className='text-xl font-medium'>
+            Worker Name:{" "}
+            <span className='text-[#6b738b] font-normal'>
+              {formData.workerName}
+            </span>
+          </p>
         )}
+        {formData.status === "completed" && formData.status === "scheduled" &&
+          <p className='text-xl font-medium'>
+            Pickup Time:{" "}
+            <span className='text-[#6b738b] font-normal'>
+              {formData.pickupTime}
+            </span>
+          </p>
+        }
       </div>
       <div className="w-full md:flex items-center">
         <div className='w-full'>
