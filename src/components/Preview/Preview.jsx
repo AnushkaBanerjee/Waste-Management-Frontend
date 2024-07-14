@@ -27,10 +27,10 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
           Authorization: `Bearer ${accessToken}`
         }
       });
-      window.location.reload();
     } catch (error) {
       console.error(error);
     }
+    window.location.reload();
   };
 
   const openReq = async () => {
@@ -53,6 +53,27 @@ const Preview = ({ step, setStep, selectedId, setSelectedId, getPickups }) => {
     }
     onOpen();
   };
+
+
+  const markAsPaid = async () => {
+    try {
+      const accessToken = getCookie('accessToken');
+      if (!accessToken) {
+        console.error("Access token not found");
+        return null;
+      }
+      const response = await axios.post(`${Backend_url}/api/v1/pickup/markAsPaid?id=${selectedId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      console.log(response);
+      // window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
 
   const accept = async (request) => {
