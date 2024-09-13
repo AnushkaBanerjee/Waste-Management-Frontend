@@ -16,12 +16,12 @@ const stats = [
 ];
 
 const teamMembers = [
-  { image: '/src/assets/ankit.jpg', name: 'Ankit Biswas', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '/src/assets/anu.jpg', name: 'Anushka Banerjee', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '/src/assets/pri.png', name: 'Priyosmita Das', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '/src/assets/abi1.jpg', name: 'Abhisek Basak', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '/src/assets/sek.png', name: 'Shekhar Hans', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '/src/assets/ani.png', name: 'Aniruddha Ghosh', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: '../../../../src/assets/ankit.jpg', name: 'Ankit Biswas', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: '../../../../src/assets/anu.jpg', name: 'Anushka Banerjee', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: '../../../../src/assets/pri.png', name: 'Priyosmita Das', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: '../../../../src/assets/abi1.jpg', name: 'Abhisek Basak', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: '../../../../src/assets/sek.png', name: 'Shekhar Hans', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: '../../../../src/assets/ani.png', name: 'Aniruddha Ghosh', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
 ];
 
 export default function Services() {
