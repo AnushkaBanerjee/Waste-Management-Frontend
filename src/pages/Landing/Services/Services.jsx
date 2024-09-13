@@ -77,13 +77,13 @@ export default function Services() {
         />
       </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0">
+        <div className="mx-auto max-w-2xl lg:mx-auto">
           <h2 className="text-4xl font-bold tracking-tight text-blue-dark sm:text-6xl">Platform Guideline</h2>
           <div className="mt-16 flex justify-center">
             <iframe className="w-full max-w-4xl h-80" src="https://www.youtube.com/embed/lednL9-7Yx4?si=Na536ap8m79xQIf9" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
           </div>
         </div>
-        <div className="mx-auto max-w-2xl lg:mx-0 mt-16">
+        <div className="mx-auto max-w-2xl lg:mx-auto mt-16">
           <h2 className="text-4xl font-bold tracking-tight text-blue-dark sm:text-6xl">Team Members</h2>
           <div className="relative overflow-hidden">
             <div
@@ -105,13 +105,13 @@ export default function Services() {
             </div>
           </div>
         </div>
-        <div className="mx-auto max-w-2xl lg:mx-0 mt-16">
+        <div className="mx-auto max-w-2xl lg:mx-auto mt-16">
           <h2 className="text-4xl font-bold tracking-tight text-blue-dark sm:text-6xl">Services we provide</h2>
           <p className="mt-6 text-lg leading-8 text-slate-800">
             {/* Add any additional content or description here if needed */}
           </p>
         </div>
-        <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
+        <div className="mx-auto mt-10 max-w-2xl lg:mx-auto lg:max-w-none">
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
             {links.map((link) => (
               <Link
@@ -127,7 +127,7 @@ export default function Services() {
             {stats.map((stat) => (
               <div key={stat.name} className="relative flex flex-col gap-y-6 rounded-xl p-6 text-center ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                 <dt className="text-base font-semibold leading-6 text-blue-default">{stat.value}</dt>
-                <dd className="text-3xl font-bold leading-8 text-gray-800">{stat.name}</dd>
+                <dd className="text-3xl font-bold leading-8 text-green-800">{stat.name}</dd>
               </div>
             ))}
           </dl>
