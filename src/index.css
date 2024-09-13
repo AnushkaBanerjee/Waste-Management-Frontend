@@ -13,7 +13,6 @@
 ::-webkit-scrollbar-track {
     background: #EDE9E9;
     border-radius: 5px;
-    
 }
  
 /* Handle */
@@ -32,3 +31,45 @@
   height: 100vh;
   width: 100vw;
 }
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+
+  
+ 
+  
+  .carousel-item img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 1024px) {
+    .carousel-item {
+      flex: 1 0 50%; /* Adjust for smaller screens */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .carousel-item {
+      flex: 1 0 100%; /* Adjust for mobile screens */
+    }
+  }
+
+  .carousel-wrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: calc(100% * 3); /* Adjust based on the number of items */
+  }
+  
+  .carousel-item {
+    flex: 1 0 33%; /* Adjust based on the number of items visible at a time */
+    box-sizing: border-box;
+    padding: 10px;
+  }
+  
+  
