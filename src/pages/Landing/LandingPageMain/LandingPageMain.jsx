@@ -9,39 +9,80 @@ import Child from "../../../assets/Waste-Management/Waste management-rafiki.png"
 
 export default function LandingPageMain() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isTurnstileVerified, setIsTurnstileVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showTick, setShowTick] = useState(false);
 
   useEffect(() => {
-    window.onloadTurnstileCallback = () => {
-      console.log("Turnstile script loaded");
-      const container = document.getElementById("example-container");
-      if (container && window.turnstile) {
-        try {
-          window.turnstile.render(container, {
-            sitekey: import.meta.env.VITE_SITE_KEY, 
-            callback: (token) => {
-              console.log(`Challenge Success ${token}`);
-              setIsTurnstileVerified(true); 
-            },
-          });
-        } catch (error) {
-          console.error("Turnstile render error:", error);
-        }
-      } else {
-        console.error("Turnstile script or container not found");
-      }
-    };
+    const hasVerifiedBefore = localStorage.getItem("hasVerified");
+
+    if (hasVerifiedBefore) {
+      setIsVerified(true);
+    }
   }, []);
 
-  if (!isTurnstileVerified) {
-    // Show only the Turnstile challenge while waiting for verification
+  const handleCheckboxChange = () => {
+    setIsLoading(true); // Start loading animation when checkbox is checked
+    setTimeout(() => {
+      setShowTick(true); // Show green tick after 1 second
+      setTimeout(() => {
+        setIsVerified(true); // Simulate verification success after another delay
+        setIsLoading(false); // Stop loading animation
+        localStorage.setItem("hasVerified", "true"); // Mark as verified
+      }, 1000); // Simulate a 1 second delay before verifying
+    }, 1000); // Simulate a 1 second loading delay
+  };
+
+  if (!isVerified) {
+    // Show the "I'm not a robot" checkbox with green tick after verification
     return (
-      <div className="flex justify-center items-center h-screen bg-black">
-        <div id="example-container"></div>
+      <div className="flex justify-center items-center h-screen bg-gray-900">
+        <div className="p-6 border-4 border-orange-500 rounded-lg bg-gray-800 text-orange-500">
+          <p className="text-lg font-bold mb-4">Suswaccha wants to know</p>
+          <div className="flex flex-col items-center space-y-4">
+            <label className="flex items-center space-x-2 text-lg">
+              <input
+                type="checkbox"
+                onChange={handleCheckboxChange}
+                className="w-6 h-6 accent-orange-500"
+                disabled={isLoading} // Disable checkbox during loading
+              />
+              <span>I'm not a robot</span>
+            </label>
+
+            {isLoading && !showTick && (
+              <div className="flex items-center space-x-3 mt-4">
+                <div className="w-8 h-8 border-4 border-t-orange-500 border-orange-300 rounded-full animate-spin"></div>
+                <span>Verifying...</span>
+              </div>
+            )}
+
+            {showTick && (
+              <div className="flex items-center space-x-3 mt-4">
+                <div className="w-8 h-8 flex items-center justify-center bg-green-500 rounded-full">
+                  <svg
+                    className="w-6 h-6 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <span>Verified!</span>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     );
   }
-
   // After Turnstile verification is successful, show the page content
   return (
     <div className="bg-white-default overflow-x-hidden relative">
