@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../Footer/Footer";
-import {Avatar, AvatarGroup, AvatarIcon} from "@nextui-org/avatar";
+import { Avatar } from "@nextui-org/avatar";
+import ani from "../../../../src/assets/ani.png";
+import anu from "../../../../src/assets/anu.jpg";
+import abi from "../../../../src/assets/abi1.jpg";
+import pri from "../../../../src/assets/pri.png";
+import sek from "../../../../src/assets/sek.png";
+import ankit from "../../../../src/assets/ankit.jpg";
 
 const links = [
   { name: 'Signup As Customer to Explore Customers Features ' },
@@ -16,12 +22,12 @@ const stats = [
 ];
 
 const teamMembers = [
-  { image: '../../../../src/assets/ankit.jpg', name: 'Ankit Biswas', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '../../../../src/assets/anu.jpg', name: 'Anushka Banerjee', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '../../../../src/assets/pri.png', name: 'Priyosmita Das', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '../../../../src/assets/abi1.jpg', name: 'Abhisek Basak', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '../../../../src/assets/sek.png', name: 'Shekhar Hans', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
-  { image: '../../../../src/assets/ani.png', name: 'Aniruddha Ghosh', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: ankit, name: 'Ankit Biswas', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: anu, name: 'Anushka Banerjee', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: pri, name: 'Priyosmita Das', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: abi, name: 'Abhisek Basak', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: sek, name: 'Shekhar Hans', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
+  { image: ani, name: 'Aniruddha Ghosh', year: '4th Year', department: 'CSE', institution: 'Meghnad Saha Institute of Technology' },
 ];
 
 export default function Services() {
@@ -85,9 +91,11 @@ export default function Services() {
               style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }} // Adjust percentage based on visible items
             >
               {items.map((member) => (
-                <div key={member.name} className="carousel-item flex-shrink-0 w-full lg:w-1/3  px-4 text-center">
+                <div key={member.name} className="carousel-item flex-shrink-0 w-full lg:w-1/3 px-4 text-center">
                   <div className="bg-lime-100 p-6 rounded-lg shadow-lg transition-transform duration-300 h-[300px] ease-in-out transform hover:scale-105">
-                    <div className="flex justify-center"><Avatar src={member.image} className="w-36 h-36 text-large mb-2" /></div>
+                    <div className="flex justify-center">
+                      <Avatar src={member.image} className="w-36 h-36 text-large mb-2" />
+                    </div>
                     <h3 className="text-xl font-semibold mb-2 text-gray-900">{member.name}</h3>
                     <p className="text-gray-700 mb-1">{member.year} - {member.department}</p>
                     <p className="text-gray-500">{member.institution}</p>
