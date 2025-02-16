@@ -84,28 +84,6 @@ export default function Services() {
           </div>
         </div>
         <div className="mx-auto max-w-2xl lg:mx-auto mt-16">
-          <h2 className="text-4xl font-bold tracking-tight text-blue-dark sm:text-6xl">Team Members</h2>
-          <div className="relative overflow-hidden">
-            <div
-              className="carousel-wrapper flex transition-transform duration-300 ease-in-out mt-12"
-              style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }} // Adjust percentage based on visible items
-            >
-              {items.map((member) => (
-                <div key={member.name} className="carousel-item flex-shrink-0 w-full lg:w-1/3 px-4 text-center">
-                  <div className="bg-lime-100 p-6 rounded-lg shadow-lg transition-transform duration-300 h-[300px] ease-in-out transform hover:scale-105">
-                    <div className="flex justify-center">
-                      <Avatar src={member.image} className="w-36 h-36 text-large mb-2" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900">{member.name}</h3>
-                    <p className="text-gray-700 mb-1">{member.year} - {member.department}</p>
-                    <p className="text-gray-500">{member.institution}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="mx-auto max-w-2xl lg:mx-auto mt-16">
           <h2 className="text-4xl font-bold tracking-tight text-blue-dark sm:text-6xl">Services we provide</h2>
           <p className="mt-6 text-lg leading-8 text-slate-800">
             {/* Add any additional content or description here if needed */}
